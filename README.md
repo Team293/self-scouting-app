@@ -6,6 +6,10 @@ This is a scouting app for the 293 SPIKE team. It is designed to be used on a la
 
 The app uses the [Pocketbase](https://pocketbase.io/) database software to store data from scouting. The database can be accessed at [this URL](https://immense-scooter.pockethost.io/_). The database is password protected, and the password is available upon request.
 
+### JSDoc
+
+The code is documented using [JSDoc](https://jsdoc.app/). The documentation can be found [here](https://team293.github.io/source/spike-scouting-app/docs).
+
 ## Events
 
 These are all the events that can occur during a match (that we are tracking). Each event has a type, which is the name of the event, and a timestamp, which is the time the event occurred.
