@@ -5,6 +5,7 @@
 :root {
     --red: #ff0000;
     --blue: #0000ff;
+    --button-rows: 11;
 }
 
 html,
@@ -12,6 +13,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Inter", sans-serif;
+    overflow: hidden;
 }
 
 body {
@@ -19,6 +21,23 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+}
+
+button {
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+}
+
+button:hover {
+    background-color: #ccc;
+}
+
+button:active {
+    background-color: #aaa;
 }
 
 #topBar {
@@ -160,20 +179,6 @@ h4 {
     gap: 0.3rem;
 }
 
-.cone {
-    clip-path: polygon(0 100%, 100% 100%, 50% 0);
-    width: 15px;
-    height: 15px;
-    background-color: orange;
-}
-
-.cube {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    width: 15px;
-    height: 15px;
-    background-color: blue;
-}
-
 .bold {
     font-weight: 600;
 }
@@ -195,26 +200,57 @@ h4 {
 }
 
 #bottomOfField {
-    display: grid;
-    /* 3 cols */
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
     flex-shrink: 0;
-    height: 200px;
+    height: calc(100% * 2 / 9);
 }
 
 #bottomOfField > div {
     height: 100%;
 }
 
-.scoringZone {
-    width: 20vw;
-    height: 100%;
+#bottomOfField > div.loadingZone {
+    aspect-ratio: 1/2;
 }
 
-#centerZone {
+.scoringGrid {
+    height: calc(100% * 9 / (var(--button-rows)));
+    aspect-ratio: 3/9;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+}
+
+.centerZone {
     flex-grow: 1;
 }
 
 div {
-    outline: 1px dashed #ff000055;
+    /* outline: 1px dashed #ff000055; */
+}
+
+.buttonGrid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.loadingZone > .zoneSection {
+    /* 1 column span 1 row span */
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    font-size: 2rem;
+    font-weight: 600;
+    background: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+i {
+    font-size: 1.7rem;
+}
+
+i.big {
+    font-size: 2.1rem;
 }

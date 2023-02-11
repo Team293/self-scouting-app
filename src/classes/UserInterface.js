@@ -18,6 +18,9 @@ const UserInterface = {
     playButton: document.getElementById("playIcon"),
     pauseButton: document.getElementById("pauseIcon"),
     matchState: document.getElementById("matchState"),
+    fullscreenButton: document.getElementById("fullscreen"),
+    exitFullscreenButton: document.getElementById("fullscreenExit"),
+    fullscreen: false,
 
     /**
      * @function playing Sets the play/pause button in the UI.
@@ -49,6 +52,95 @@ const UserInterface = {
      * @memberof UserInterface
      */
     updateGameState(state) {
-        this.matchState.innerHTML = state;
+        if (state !== this.matchState.innerHTML) {
+            this.matchState.innerHTML = state;
+        }
+    },
+
+    toggleFullscreen() {
+        this.fullscreen = !this.fullscreen;
+        // toggle fullscreen
+        if (document.fullscreenElement) {
+            try {
+                if (document.exitFullscreen) document.exitFullscreen();
+                else if (document.webkitExitFullscreen)
+                    document.webkitExitFullscreen();
+                else if (document.mozCancelFullScreen)
+                    document.mozCancelFullScreen();
+            } catch (e) {
+                console.error(e);
+            }
+        } else {
+            try {
+                if (document.body.requestFullscreen)
+                    document.body.requestFullscreen();
+                else if (document.body.mozRequestFullScreen)
+                    document.body.mozRequestFullScreen();
+                else if (document.body.webkitRequestFullscreen)
+                    document.body.webkitRequestFullscreen();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        this.updateFullscreen();
+    },
+
+    updateFullscreen() {
+        if (this.fullscreen) {
+            this.fullscreenButton.classList.add("hidden");
+            this.exitFullscreenButton.classList.remove("hidden");
+        } else {
+            this.fullscreenButton.classList.remove("hidden");
+            this.exitFullscreenButton.classList.add("hidden");
+        }
     },
 };
+
+// when fullscreen is opened or closed update the UI
+document.addEventListener("fullscreenchange", () => {
+    UserInterface.fullscreen = document.fullscreenElement;
+    UserInterface.updateFullscreen();
+});
+
+// get redAlliance and blueAlliance elements
+const redAlliance = document.getElementById("redAlliance");
+for (let row = 0; row < 9; row++) {
+    for (let col = 0; col <= 2; col++) {
+        // row adds 1, column adds 9
+        let index = row + col * 9;
+        // create the element
+        let button = document.createElement("button");
+        button.appendChild(document.createTextNode(index.toString()));
+        // add data-index attribute
+        button.setAttribute("data-index", index);
+        // add event listener
+        button.addEventListener("click", (e) => fieldButtonPressed(e));
+        redAlliance.appendChild(button);
+    }
+}
+
+const blueAlliance = document.getElementById("blueAlliance");
+for (let row = 0; row < 9; row++) {
+    for (let col = 2; col >= 0; col--) {
+        // row adds 1, column adds 9
+        let index = row + col * 9;
+        // create the element
+        let button = document.createElement("button");
+        button.appendChild(document.createTextNode(index.toString()));
+        // add data-index attribute
+        button.setAttribute("data-index", index);
+        // add event listener
+        button.addEventListener("click", (e) => fieldButtonPressed(e));
+        blueAlliance.appendChild(button);
+    }
+}
+
+function fieldButtonPressed(event) {
+    // get index of button
+    const index = event.target.getAttribute("data-index");
+    // get parent id
+    const parent = event.target.parentElement.id;
+    // get the button
+    console.log(index, parent);
+}

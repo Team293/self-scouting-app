@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="xml:lang">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
@@ -11,8 +11,28 @@
         <script src="src/classes/Alliance.js" defer></script>
         <script src="src/classes/Robot.js" defer></script>
         <script src="src/classes/UserInterface.js" defer></script>
-
         <script src="src/main.js" defer></script>
+        <!-- APPLE TAGS -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <!-- FAVICON TAGS -->
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="favicon/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="favicon/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="favicon/favicon-16x16.png"
+        />
+        <link rel="manifest" href="favicon/site.webmanifest" />
     </head>
     <body>
         <noscript>
@@ -25,11 +45,11 @@
         <nav id="topBar">
             <div class="third left">
                 <button class="buttonSquare" onclick="match.reset()">
-                    <i class="bi bi-skip-start"></i>
+                    <i class="bi bi-skip-start big"></i>
                 </button>
                 <button class="buttonSquare" onclick="match.timer.toggle()">
-                    <i id="playIcon" class="bi bi-play"></i>
-                    <i id="pauseIcon" class="bi bi-pause"></i>
+                    <i id="playIcon" class="bi bi-play big"></i>
+                    <i id="pauseIcon" class="bi bi-pause big"></i>
                 </button>
                 <h3 class="mono" style="color: #999">
                     <span
@@ -66,19 +86,34 @@
                     ></div>
                 </div>
             </div>
-            <div class="third"></div>
+            <div class="third right">
+                <button
+                    class="buttonSquare"
+                    onclick="UserInterface.toggleFullscreen()"
+                >
+                    <i id="fullscreen" class="bi bi-fullscreen"></i>
+                    <i
+                        id="fullscreenExit"
+                        class="bi bi-fullscreen-exit hidden"
+                    ></i>
+                </button>
+            </div>
         </nav>
         <!-- BOARD -->
         <div id="board">
             <div id="topOfField">
-                <div class="scoringZone"></div>
-                <div id="centerZone"></div>
-                <div class="scoringZone"></div>
-            </div>
-            <div id="bottomOfField">
-                <div></div>
-                <div></div>
-                <div></div>
+                <div class="scoringGrid" id="redAlliance"></div>
+                <div class="centerZone">
+                    <div id="bottomOfField">
+                        <div class="loadingZone buttonGrid">
+                            <button>Single Substation</button>
+                            <button>Double Substation</button>
+                        </div>
+                        <div class="centerZone"></div>
+                        <div class="loadingZone"></div>
+                    </div>
+                </div>
+                <div class="scoringGrid" id="blueAlliance"></div>
             </div>
         </div>
     </body>
