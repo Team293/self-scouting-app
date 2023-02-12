@@ -9,6 +9,8 @@
     --light-blue: #4488ff;
     --light-red-hover: #ff8888;
     --light-blue-hover: #88ccff;
+    --light-red-active: #ff6666;
+    --light-blue-active: #66aaff;
     --dark-red: #cc0000;
     --dark-blue: #0000cc;
     --button-rows: 11;
@@ -187,6 +189,12 @@ h4 {
     background: var(--blue);
 }
 
+.diamond {
+    width: 12px;
+    height: 12px;
+    transform: rotate(45deg);
+}
+
 .flex {
     display: flex;
     align-items: center;
@@ -321,44 +329,34 @@ i.big {
     width: 100%;
 }
 
-#chargeStationRed > button,
-.redSubstation > button,
-#redAlliance > button,
-button[data-alliance="red"] {
+.redButton {
     background: var(--light-red);
     border: 2px solid var(--dark-red);
     color: #fff;
     cursor: pointer;
 }
 
-#chargeStationBlue > button,
-.blueSubstation > button,
-#blueAlliance > button,
-button[data-alliance="blue"] {
+.blueButton {
     background: var(--light-blue);
     border: 2px solid var(--dark-blue);
     color: #fff;
     cursor: pointer;
 }
 
-#chargeStationRed > button:hover,
-.redSubstation > button:hover,
-#redAlliance > button:hover,
-button[data-alliance="red"]:hover {
+.redButton:hover {
     background: var(--light-red-hover);
-    border: 2px solid var(--dark-red);
-    color: #fff;
-    cursor: pointer;
 }
 
-#chargeStationBlue > button:hover,
-.blueSubstation > button:hover,
-#blueAlliance > button:hover,
-button[data-alliance="blue"]:hover {
+.blueButton:hover {
     background: var(--light-blue-hover);
-    border: 2px solid var(--dark-blue);
-    color: #fff;
-    cursor: pointer;
+}
+
+.redButton:active {
+    background: var(--light-red-active) !important;
+}
+
+.blueButton:active {
+    background: var(--light-blue-active) !important;
 }
 
 .loadingZone > button {
