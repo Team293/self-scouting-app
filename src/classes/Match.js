@@ -33,7 +33,7 @@ class Match {
             },
 
             isTeleop() {
-                return this.teleop;
+                return !this.auto;
             },
         };
 
@@ -140,11 +140,9 @@ class Match {
                 if (this.time > this.autoLength) {
                     // change the game state to teleop
                     this.match.mode.auto = false;
-                    this.match.mode.teleop = true;
                 } else {
                     // change the game state to auto
                     this.match.mode.auto = true;
-                    this.match.mode.teleop = false;
                 }
 
                 // update the timer on the user interface
@@ -152,6 +150,9 @@ class Match {
 
                 // update the play/pause button
                 UserInterface.playing(this.running);
+
+                // update "Mobility Bonus" button's status
+                UserInterface.updateMobilityBonus(this.match.mode.isAuto());
             },
 
             /**

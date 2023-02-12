@@ -5,7 +5,15 @@
 :root {
     --red: #ff0000;
     --blue: #0000ff;
+    --light-red: #ff4444;
+    --light-blue: #4488ff;
+    --light-red-hover: #ff8888;
+    --light-blue-hover: #88ccff;
+    --dark-red: #cc0000;
+    --dark-blue: #0000cc;
     --button-rows: 11;
+    --scoringGrid: 9;
+    --buttonGrid: 2;
 }
 
 html,
@@ -30,6 +38,11 @@ button {
     padding: 0;
     margin: 0;
     background-color: #fff;
+    font-family: "Inter", sans-serif;
+    transition: background-color 0.2s ease-out, font-size 0.2s ease-out,
+        color 0.2s ease-out;
+    white-space: nowrap;
+    font-size: 2.5vh;
 }
 
 button:hover {
@@ -42,13 +55,14 @@ button:active {
 
 #topBar {
     width: 100%;
-    height: 3rem;
+    height: 10vh;
     flex-shrink: 0;
     background: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
+    font-size: 1.3vh;
 }
 
 canvas {
@@ -65,10 +79,10 @@ canvas {
     background: none;
     outline: none;
     border: none;
-    cursor: pointer;
     font-weight: 500;
     font-size: 0.9rem;
     flex-shrink: 0;
+    overflow: hidden;
 }
 
 .button:hover {
@@ -115,19 +129,19 @@ h6 {
 }
 
 h1 {
-    font-size: 1.5rem;
+    font-size: 5vh;
 }
 
 h2 {
-    font-size: 1.2rem;
+    font-size: 4vh;
 }
 
 h3 {
-    font-size: 1rem;
+    font-size: 4vh;
 }
 
 h4 {
-    font-size: 0.8rem;
+    font-size: 3vh;
 }
 
 .separator {
@@ -142,7 +156,7 @@ h4 {
 }
 
 .third {
-    min-width: calc(100% / 3);
+    /* min-width: calc(100% / 3); */
     height: 100%;
     display: flex;
     justify-content: center;
@@ -197,12 +211,13 @@ h4 {
     grid-column: 1 / 4;
     flex-grow: 1;
     display: flex;
+    height: calc(100% * 9 / var(--button-rows));
 }
 
 #bottomOfField {
     display: flex;
     flex-shrink: 0;
-    height: calc(100% * 2 / 9);
+    height: calc(100% * 2 / var(--button-rows));
 }
 
 #bottomOfField > div {
@@ -210,11 +225,14 @@ h4 {
 }
 
 #bottomOfField > div.loadingZone {
-    aspect-ratio: 1/2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    aspect-ratio: 3/2;
 }
 
 .scoringGrid {
-    height: calc(100% * 9 / (var(--button-rows)));
+    height: 100%;
     aspect-ratio: 3/9;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -223,22 +241,23 @@ h4 {
 
 .centerZone {
     flex-grow: 1;
+    display: flex;
+}
+
+.centerField {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 div {
     /* outline: 1px dashed #ff000055; */
 }
 
-.buttonGrid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-}
-
 .loadingZone > .zoneSection {
     /* 1 column span 1 row span */
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
     font-size: 2rem;
     font-weight: 600;
     background: #fff;
@@ -253,4 +272,96 @@ i {
 
 i.big {
     font-size: 2.1rem;
+}
+
+.centerBottom {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    align-items: center;
+    height: 100%;
+}
+
+#robots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    align-items: center;
+    height: calc(100% * 2 / 9);
+    width: 100%;
+}
+
+.centerBottom > button,
+#robots > button {
+    height: 50%;
+    border-radius: 0.2rem;
+    padding: 0 1vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chargeStation {
+    height: 50%;
+    width: 20%;
+    padding: 10%;
+}
+
+.chargeStation > button {
+    height: 50%;
+    width: 100%;
+    border-radius: 0;
+}
+
+#field {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#chargeStationRed > button,
+.redSubstation > button,
+#redAlliance > button,
+button[data-alliance="red"] {
+    background: var(--light-red);
+    border: 2px solid var(--dark-red);
+    color: #fff;
+    cursor: pointer;
+}
+
+#chargeStationBlue > button,
+.blueSubstation > button,
+#blueAlliance > button,
+button[data-alliance="blue"] {
+    background: var(--light-blue);
+    border: 2px solid var(--dark-blue);
+    color: #fff;
+    cursor: pointer;
+}
+
+#chargeStationRed > button:hover,
+.redSubstation > button:hover,
+#redAlliance > button:hover,
+button[data-alliance="red"]:hover {
+    background: var(--light-red-hover);
+    border: 2px solid var(--dark-red);
+    color: #fff;
+    cursor: pointer;
+}
+
+#chargeStationBlue > button:hover,
+.blueSubstation > button:hover,
+#blueAlliance > button:hover,
+button[data-alliance="blue"]:hover {
+    background: var(--light-blue-hover);
+    border: 2px solid var(--dark-blue);
+    color: #fff;
+    cursor: pointer;
+}
+
+.loadingZone > button {
+    height: 50%;
+    width: 100%;
 }

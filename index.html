@@ -103,17 +103,43 @@
         <div id="board">
             <div id="topOfField">
                 <div class="scoringGrid" id="redAlliance"></div>
-                <div class="centerZone">
-                    <div id="bottomOfField">
-                        <div class="loadingZone buttonGrid">
-                            <button>Single Substation</button>
-                            <button>Double Substation</button>
+                <div class="centerField">
+                    <div id="robots">
+                        <button data-alliance="red">293</button>
+                        <button data-alliance="red">293</button>
+                        <button data-alliance="red">293</button>
+                        <button data-alliance="blue">293</button>
+                        <button data-alliance="blue">293</button>
+                        <button data-alliance="blue">293</button>
+                    </div>
+                    <div id="field">
+                        <div id="chargeStationRed" class="chargeStation">
+                            <button>Dock</button>
+                            <button>Engage</button>
                         </div>
-                        <div class="centerZone"></div>
-                        <div class="loadingZone"></div>
+                        <div id="chargeStationBlue" class="chargeStation">
+                            <button>Dock</button>
+                            <button>Engage</button>
+                        </div>
                     </div>
                 </div>
                 <div class="scoringGrid" id="blueAlliance"></div>
+            </div>
+            <div id="bottomOfField">
+                <div class="loadingZone redSubstation">
+                    <button>Single Subst.</button>
+                    <button>Double Subst.</button>
+                </div>
+                <div class="centerZone centerBottom">
+                    <button>Field Pickup</button>
+                    <button>Field Drop</button>
+                    <button id="mobilityBonusBtn">Mobility Bonus</button>
+                    <button>Disabled</button>
+                </div>
+                <div class="loadingZone blueSubstation">
+                    <button>Single Subst.</button>
+                    <button>Double Subst.</button>
+                </div>
             </div>
         </div>
     </body>

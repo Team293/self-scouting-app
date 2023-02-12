@@ -8,6 +8,7 @@
  * @property {HTMLElement} timer The timer element.
  * @property {HTMLElement} playButton The play button element.
  * @property {HTMLElement} pauseButton The pause button element.
+ * @property {HTMLElement} mobilityBonusButton The "Mobility Bonus" button element.
  * @property {HTMLElement} matchState The game state element.
  * @property {function} playing Sets the play/pause button.
  * @property {function} updateTimer Updates the timer.
@@ -17,6 +18,7 @@ const UserInterface = {
     timer: document.getElementById("timer"),
     playButton: document.getElementById("playIcon"),
     pauseButton: document.getElementById("pauseIcon"),
+    mobilityBonusButton: document.getElementById("mobilityBonusBtn"),
     matchState: document.getElementById("matchState"),
     fullscreenButton: document.getElementById("fullscreen"),
     exitFullscreenButton: document.getElementById("fullscreenExit"),
@@ -44,6 +46,15 @@ const UserInterface = {
      */
     updateTimer(time) {
         this.timer.innerHTML = time;
+    },
+
+    /**
+     * @function updateMobilityBonus Updates the status of the "Mobility Bonus" button.
+     * @param {boolean} isAuto Whether or not the game is in Auto mode.
+     * @memberof UserInterface
+     */
+    updateMobilityBonus(isAuto) {
+        this.mobilityBonusButton.disabled = !isAuto;
     },
 
     /**
