@@ -146,12 +146,3 @@ for (let row = 0; row < 9; row++) {
         blueAlliance.appendChild(button);
     }
 }
-
-function fieldButtonPressed(event) {
-    // get index of button
-    const index = event.target.getAttribute("data-index");
-    // get parent id
-    const parent = event.target.parentElement.id;
-    // get the button
-    console.log(index, parent);
-}

@@ -104,3 +104,27 @@ const POINT_VALUES = {
         PARK: 2,
     },
 };
+
+/**
+ * @object EVENT_TYPES The event types.
+ * @property {string} PICK_UP_PIECE An event in which a piece was picked up.
+ * @property {string} DROP_PIECE An event in which a piece was dropped.
+ * @property {string} SCORE_PIECE An event in which a piece was scored.
+ * @property {string} DISLODGE_PIECE An event in which a piece was dislodged from the grid.
+ * @property {string} EARN_MOBILITY_BONUS An event in which a robot earns the mobility bonus.
+ * @property {string} DISABLED An event in which a robot is disabled.
+ * @property {string} ENABLED An event in which a robot is reenabled.
+ * @property {string} CHARGE_STATION_DOCK An event in which a robot docks with the charge station.
+ * @property {string} CHARGE_STATION_ENGAGE An event in which a robot engages with the charge station.
+ */
+const EVENT_TYPES = {
+    PICK_UP_PIECE: "pick up piece",
+    DROP_PIECE: "drop piece",
+    SCORE_PIECE: "score piece",
+    DISLODGE_PIECE: "dislodge piece",
+    EARN_MOBILITY_BONUS: "earn mobility bonus",
+    DISABLED: "disabled",
+    ENABLED: "enabled",
+    CHARGE_STATION_DOCK: "charge station dock",
+    CHARGE_STATION_ENGAGE: "charge station engage",
+};

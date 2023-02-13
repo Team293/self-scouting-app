@@ -11,8 +11,10 @@
         <script src="src/classes/Alliance.js" defer></script>
         <script src="src/classes/Robot.js" defer></script>
         <script src="src/classes/UserInterface.js" defer></script>
+        <script src="src/classes/Event.js" defer></script>
         <script src="src/main.js" defer></script>
         <script src="src/computed_styles.js" defer></script>
+        <script src="src/button_events.js" defer></script>
         <!-- APPLE TAGS -->
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <!-- FAVICON TAGS -->
@@ -92,21 +94,21 @@
                 <div class="scoringGrid" id="redAlliance"></div>
                 <div class="centerField">
                     <div id="robots">
-                        <button data-alliance="red">293</button>
-                        <button data-alliance="red">293</button>
-                        <button data-alliance="red">293</button>
-                        <button data-alliance="blue">293</button>
-                        <button data-alliance="blue">293</button>
-                        <button data-alliance="blue">293</button>
+                        <button data-alliance="red" team-number="293">293</button>
+                        <button data-alliance="red" team-number="293">293</button>
+                        <button data-alliance="red" team-number="293">293</button>
+                        <button data-alliance="blue" team-number="293">293</button>
+                        <button data-alliance="blue" team-number="293">293</button>
+                        <button data-alliance="blue" team-number="293">293</button>
                     </div>
                     <div id="field">
                         <div id="chargeStationRed" class="chargeStation">
-                            <button>Dock</button>
-                            <button>Engage</button>
+                            <button onclick="doDock(RED)">Dock</button>
+                            <button onclick="doEngage(RED)">Engage</button>
                         </div>
                         <div id="chargeStationBlue" class="chargeStation">
-                            <button>Dock</button>
-                            <button>Engage</button>
+                            <button onclick="doDock(BLUE)">Dock</button>
+                            <button onclick="doEngage(BLUE)">Engage</button>
                         </div>
                     </div>
                 </div>
@@ -114,18 +116,18 @@
             </div>
             <div id="bottomOfField">
                 <div class="loadingZone redSubstation">
-                    <button>Single Subst.</button>
-                    <button>Double Subst.</button>
+                    <button onclick="doSingleSubstation(RED)">Single Subst.</button>
+                    <button onclick="doDoubleSubstation(RED)">Double Subst.</button>
                 </div>
                 <div class="centerZone centerBottom">
-                    <button>Field Pickup</button>
-                    <button>Field Drop</button>
-                    <button id="mobilityBonusBtn">Mobility Bonus</button>
-                    <button>Disabled</button>
+                    <button onclick="doFieldPickup()">Field Pickup</button>
+                    <button onclick="doFieldDrop()">Field Drop</button>
+                    <button id="mobilityBonusBtn" onclick="doMobilityBonus()">Mobility Bonus</button>
+                    <button onclick="doDisabled()">Disabled</button>
                 </div>
                 <div class="loadingZone blueSubstation">
-                    <button>Single Subst.</button>
-                    <button>Double Subst.</button>
+                    <button onclick="doSingleSubstation(BLUE)">Single Subst.</button>
+                    <button onclick="doDoubleSubstation(BLUE)">Double Subst.</button>
                 </div>
             </div>
         </div>
