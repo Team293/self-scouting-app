@@ -1,3 +1,5 @@
+// TODO: Make these buttons actually work
+
 function robotButtonListener(button, event) {
     const teamNumber = button.getAttribute("team-number");
     const color = button.getAttribute("data-alliance") == "red" ? RED : BLUE;
