@@ -21,6 +21,7 @@ class Robot {
         this.startingElement = EMPTY;
         this.startingPosition = startingPosition;
         this.startingPosition = CENTER;
+        this.disabled = false;
     }
 
     /**

@@ -2,46 +2,62 @@
 
 function robotButtonListener(button, event) {
     const teamNumber = button.getAttribute("team-number");
-    const color = button.getAttribute("data-alliance") == "red" ? RED : BLUE;
-    console.log(`Selecting robot ${teamNumber} on alliance ${color}`);
+    const color = button.getAttribute("data-alliance") === "red" ? RED : BLUE;
+    document.querySelectorAll("#robots>button").forEach(b => {
+        b.classList.remove("selected");
+    });
+    button.classList.add("selected");
+    selectedRobot = {teamNumber, color};
+    updateDisabledButtonText();
 }
 
-function doDock(color) {
-    console.log("Docking:", color);
+function colorCheck(color) {
+    return selectedRobot && selectedRobot.color === color;
 }
 
-function doEngage(color) {
-    console.log("Engaging:", color);
+function doDock() {
+    console.log("Docking for robot", selectedRobot.teamNumber);
 }
 
-function doSingleSubstation(color) {
-    console.log("Single substation:", color);
+function doEngage() {
+    console.log("Engaging for robot", selectedRobot.teamNumber);
 }
 
-function doDoubleSubstation(color) {
-    console.log("Double substation:", color);
+function doSingleSubstation() {
+    console.log("Single substation for robot", selectedRobot.teamNumber);
+}
+
+function doDoubleSubstation() {
+    console.log("Double substation for robot", selectedRobot.teamNumber);
 }
 
 function doFieldPickup() {
-    console.log("Field pickup");
+    console.log("Field pickup for robot", selectedRobot.teamNumber);
 }
 
 function doFieldDrop() {
-    console.log("Field drop");
+    console.log("Field drop for robot", selectedRobot.teamNumber);
 }
 
 function doMobilityBonus() {
-    console.log("Mobility bonus");
+    console.log("Mobility bonus for robot", selectedRobot.teamNumber);
 }
 
 function doDisabled() {
-    console.log("Disabled");
+    let robot = match.getRobot(selectedRobot);
+    robot.disabled = !robot.disabled;
+    updateDisabledButtonText();
 }
 
 function fieldButtonPressed(event) {
     const index = parseInt(event.target.getAttribute("data-index"));
     const color = event.target.parentElement == redAlliance ? RED : BLUE;
     console.log(index, color);
+}
+
+function updateDisabledButtonText() {
+    let robot = match.getRobot(selectedRobot);
+    document.getElementById("disabledBtn").innerHTML = robot.disabled ? "Enabled" : "Disabled";
 }
 
 document.querySelectorAll("button[data-alliance=\"red\"],button[data-alliance=\"blue\"]")

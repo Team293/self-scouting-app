@@ -88,28 +88,37 @@
                 </button>
             </div>
         </nav>
+        <!-- INITIAL INPUT -->
+        <div id="initial-input">
+            <input type="number" id="red-teamnum-1" value="293"></input>
+            <input type="number" id="red-teamnum-2" value="293"></input>
+            <input type="number" id="red-teamnum-3" value="293"></input>
+            <input type="number" id="blue-teamnum-1" value="293"></input>
+            <input type="number" id="blue-teamnum-2" value="293"></input>
+            <input type="number" id="blue-teamnum-3" value="293"></input>
+            <button onclick="doInitialInput()">Finish setup</button>
+        </div>
         <!-- BOARD -->
-        <div id="board">
+        <div id="board" style="display:none">
             <div id="topOfField">
                 <div class="scoringGrid" id="redAlliance"></div>
                 <div class="centerField">
                     <div id="robots">
-                        <!-- TODO: Allow changing of these team numbers -->
-                        <button data-alliance="red" team-number="293">293</button>
-                        <button data-alliance="red" team-number="293">293</button>
-                        <button data-alliance="red" team-number="293">293</button>
-                        <button data-alliance="blue" team-number="293">293</button>
-                        <button data-alliance="blue" team-number="293">293</button>
-                        <button data-alliance="blue" team-number="293">293</button>
+                        <button data-alliance="red" data-team-index="1">293</button>
+                        <button data-alliance="red" data-team-index="2">293</button>
+                        <button data-alliance="red" data-team-index="3">293</button>
+                        <button data-alliance="blue" data-team-index="1">293</button>
+                        <button data-alliance="blue" data-team-index="2">293</button>
+                        <button data-alliance="blue" data-team-index="3">293</button>
                     </div>
                     <div id="field">
                         <div id="chargeStationRed" class="chargeStation">
-                            <button onclick="doDock(RED)">Dock</button>
-                            <button onclick="doEngage(RED)">Engage</button>
+                            <button onclick="if (colorCheck(RED)) doDock()">Dock</button>
+                            <button onclick="if (colorCheck(RED)) doEngage()">Engage</button>
                         </div>
                         <div id="chargeStationBlue" class="chargeStation">
-                            <button onclick="doDock(BLUE)">Dock</button>
-                            <button onclick="doEngage(BLUE)">Engage</button>
+                            <button onclick="if (colorCheck(BLUE)) doDock()">Dock</button>
+                            <button onclick="if (colorCheck(BLUE)) doEngage()">Engage</button>
                         </div>
                     </div>
                 </div>
@@ -117,18 +126,18 @@
             </div>
             <div id="bottomOfField">
                 <div class="loadingZone blueSubstation">
-                    <button onclick="doSingleSubstation(BLUE)">Single Subst.</button>
-                    <button onclick="doDoubleSubstation(BLUE)">Double Subst.</button>
+                    <button onclick="if (colorCheck(BLUE)) doSingleSubstation()">Single Subst.</button>
+                    <button onclick="if (colorCheck(BLUE)) doDoubleSubstation()">Double Subst.</button>
                 </div>
                 <div class="centerZone centerBottom">
-                    <button onclick="doFieldPickup()">Field Pickup</button>
-                    <button onclick="doFieldDrop()">Field Drop</button>
-                    <button id="mobilityBonusBtn" onclick="doMobilityBonus()">Mobility Bonus</button>
-                    <button onclick="doDisabled()">Disabled</button>
+                    <button onclick="if (selectedRobot) doFieldPickup()">Field Pickup</button>
+                    <button onclick="if (selectedRobot) doFieldDrop()">Field Drop</button>
+                    <button id="mobilityBonusBtn" onclick="if (selectedRobot) doMobilityBonus()">Mobility Bonus</button>
+                    <button id="disabledBtn" onclick="if (selectedRobot) doDisabled()">Disabled</button>
                 </div>
                 <div class="loadingZone redSubstation">
-                    <button onclick="doSingleSubstation(RED)">Single Subst.</button>
-                    <button onclick="doDoubleSubstation(RED)">Double Subst.</button>
+                    <button onclick="if (colorCheck(RED)) doSingleSubstation()">Single Subst.</button>
+                    <button onclick="if (colorCheck(RED)) doDoubleSubstation()">Double Subst.</button>
                 </div>
             </div>
         </div>

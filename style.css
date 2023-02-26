@@ -361,3 +361,11 @@ i.big {
     height: 50%;
     width: 100%;
 }
+
+.redButton.selected {
+    background: var(--light-red-hover) !important;
+}
+
+.blueButton.selected {
+    background: var(--light-blue-hover) !important;
+}

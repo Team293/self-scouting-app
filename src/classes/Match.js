@@ -333,4 +333,32 @@ class Match {
 
         UserInterface.updateGameState(this.mode.isTeleop() ? "TELEOP" : "AUTO");
     }
+
+    /**
+     * @method setupTeamButtons
+     * @description Set up the team buttons
+     * @memberof Match
+     */
+    setupTeamButtons() {
+        for (let color of ["red", "blue"]) {
+            for (let i = 1; i <= 3; i++) {
+                let btn = document.querySelector(`button[data-alliance=${color}][data-team-index="${i}"]`);
+                let alliance = color === "red" ? this.redAlliance : this.blueAlliance;
+                let team = alliance.robots[i - 1].team;
+                btn.innerHTML = team;
+                btn.setAttribute("team-number", team);
+            }
+        }
+    }
+
+    /**
+     * @method getRobot
+     * @description Gets a robot
+     * @memberof Match
+     */
+    getRobot(robot) {
+        let alliance = robot.color === RED ? this.redAlliance : this.blueAlliance;
+        let team = alliance.robots.find(x => x.team === robot.teamNumber);
+        return team;
+    }
 }
