@@ -135,16 +135,16 @@ class Robot {
      * @returns {number} The inventory of the robot
      * @memberof Robot
      */
-    getInventory(events) {
-        let inventory = this.startingElement;
-        for (const event of events) {
-            if (event.type === "pickupGamePiece" && event.team === this.team) {
-                inventory = event.matchPiece;
-            }
-            if (event.type === "scoreGamePiece" && event.team === this.team) {
-                inventory = EMPTY;
-            }
-        }
-        return inventory;
+    getInventory(/* events */) { // TODO: I don't know why this is so complicated, "return this.inventory" just works...
+        // let inventory = this.startingElement;
+        // for (const event of events) {
+        //     if (event.type === "pickupGamePiece" && event.team === this.team) {
+        //         inventory = event.matchPiece;
+        //     }
+        //     if (event.type === "scoreGamePiece" && event.team === this.team) {
+        //         inventory = EMPTY;
+        //     }
+        // }
+        return this.inventory;
     }
 }

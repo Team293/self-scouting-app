@@ -5,14 +5,27 @@
 :root {
     --red: #ff0000;
     --blue: #0000ff;
+    
     --light-red: #ff4444;
     --light-blue: #4488ff;
+    --light-gray: #a1a1a1;
+
     --light-red-hover: #ff8888;
     --light-blue-hover: #88ccff;
+
     --light-red-active: #ff6666;
     --light-blue-active: #66aaff;
+
     --dark-red: #cc0000;
     --dark-blue: #0000cc;
+    --dark-gray: #666666;
+
+    --light-red-disabled: #ccaaaa;
+    --light-blue-disabled: #aaaacc;
+
+    --dark-red-disabled: #aa8888;
+    --dark-blue-disabled: #8888aa;
+
     --button-rows: 11;
     --scoringGrid: 9;
     --buttonGrid: 2;
@@ -282,10 +295,12 @@ i.big {
 
 .centerBottom {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
     align-items: center;
     height: 100%;
+    row-gap: 0;
 }
 
 #robots {
@@ -299,13 +314,15 @@ i.big {
 
 .centerBottom > button,
 #robots > button {
-    height: 50%;
     border-radius: 0.2rem;
     padding: 0 1vw;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.centerBottom > button {height: 30%;}
+#robots > button {height: 50%;}
 
 .chargeStation {
     height: 50%;
@@ -316,7 +333,6 @@ i.big {
 .chargeStation > button {
     height: 50%;
     width: 100%;
-    border-radius: 0;
 }
 
 #field {
@@ -357,6 +373,16 @@ i.big {
     background: var(--light-blue-active) !important;
 }
 
+.redButton:disabled {
+    background: var(--light-red-disabled) !important;
+    border-color: var(--dark-red-disabled) !important;
+}
+
+.blueButton:disabled {
+    background: var(--light-blue-disabled) !important;
+    border-color: var(--dark-blue-disabled) !important;
+}
+
 .loadingZone > button {
     height: 50%;
     width: 100%;
@@ -368,4 +394,24 @@ i.big {
 
 .blueButton.selected {
     background: var(--light-blue-hover) !important;
+}
+
+.gamePieceSelector {
+    border: var(--dark-gray);
+    background-color: var(--light-gray);
+}
+
+.chargeStation>button:nth-child(1) {
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+}
+
+.chargeStation>button:nth-child(2) {
+    border-bottom-left-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+}
+
+.break {
+    flex-basis: 100%;
+    height: 0;
 }

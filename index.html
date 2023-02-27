@@ -113,12 +113,12 @@
                     </div>
                     <div id="field">
                         <div id="chargeStationRed" class="chargeStation">
-                            <button onclick="if (colorCheck(RED)) doDock()">Dock</button>
-                            <button onclick="if (colorCheck(RED)) doEngage()">Engage</button>
+                            <button onclick="doDock()" disabled>Dock</button>
+                            <button onclick="doEngage()" disabled>Engage</button>
                         </div>
                         <div id="chargeStationBlue" class="chargeStation">
-                            <button onclick="if (colorCheck(BLUE)) doDock()">Dock</button>
-                            <button onclick="if (colorCheck(BLUE)) doEngage()">Engage</button>
+                            <button onclick="doDock()" disabled>Dock</button>
+                            <button onclick="doEngage()" disabled>Engage</button>
                         </div>
                     </div>
                 </div>
@@ -126,18 +126,21 @@
             </div>
             <div id="bottomOfField">
                 <div class="loadingZone blueSubstation">
-                    <button onclick="if (colorCheck(BLUE)) doSingleSubstation()">Single Subst.</button>
-                    <button onclick="if (colorCheck(BLUE)) doDoubleSubstation()">Double Subst.</button>
+                    <button onclick="doSingleSubstation()" disabled>Single Subst.</button>
+                    <button onclick="doDoubleSubstation()" disabled>Double Subst.</button>
                 </div>
                 <div class="centerZone centerBottom">
-                    <button onclick="if (selectedRobot) doFieldPickup()">Field Pickup</button>
-                    <button onclick="if (selectedRobot) doFieldDrop()">Field Drop</button>
-                    <button id="mobilityBonusBtn" onclick="if (selectedRobot) doMobilityBonus()">Mobility Bonus</button>
-                    <button id="disabledBtn" onclick="if (selectedRobot) doDisabled()">Disabled</button>
+                    <button onclick="doFieldPickup()" disabled>Field Pickup</button>
+                    <button onclick="doFieldDrop()" disabled>Field Drop</button>
+                    <button id="mobilityBonusBtn" onclick="doMobilityBonus()" disabled>Mobility Bonus</button>
+                    <button id="disabledBtn" onclick="doDisabled()" disabled>Disabled</button>
+                    <div class="break"><!-- I hate flexbox --></div>
+                    <button class="gamePieceSelector" onclick="selectGamePiece(CUBE)">Cube</button>
+                    <button class="gamePieceSelector" onclick="selectGamePiece(CONE)">Cone</button>
                 </div>
                 <div class="loadingZone redSubstation">
-                    <button onclick="if (colorCheck(RED)) doSingleSubstation()">Single Subst.</button>
-                    <button onclick="if (colorCheck(RED)) doDoubleSubstation()">Double Subst.</button>
+                    <button onclick="doSingleSubstation()" disabled>Single Subst.</button>
+                    <button onclick="doDoubleSubstation()" disabled>Double Subst.</button>
                 </div>
             </div>
         </div>

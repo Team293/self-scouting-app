@@ -2,6 +2,7 @@
 
 let match;
 let selectedRobot = null;
+let selectedGamePieceType = null;
 
 function doInitialInput() {
     match = new Match(

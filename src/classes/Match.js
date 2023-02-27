@@ -355,8 +355,10 @@ class Match {
      * @method getRobot
      * @description Gets a robot
      * @memberof Match
+     * @returns {Robot | null}
      */
     getRobot(robot) {
+        if (!robot) return null;
         let alliance = robot.color === RED ? this.redAlliance : this.blueAlliance;
         let team = alliance.robots.find(x => x.team === robot.teamNumber);
         return team;
