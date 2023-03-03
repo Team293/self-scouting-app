@@ -415,3 +415,8 @@ i.big {
     flex-basis: 100%;
     height: 0;
 }
+
+.robot-disabled {
+    text-decoration: line-through;
+    color: #000 !important;
+}

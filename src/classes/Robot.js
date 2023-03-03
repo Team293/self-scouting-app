@@ -147,4 +147,8 @@ class Robot {
         // }
         return this.inventory;
     }
+
+    get color() {
+        return this.alliance.color;
+    }
 }

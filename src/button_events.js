@@ -22,8 +22,8 @@ function doEngage() {
 
 function doSingleSubstation() {
     console.log("Single substation for robot", selectedRobot.teamNumber);
-    match.getRobot(selectedRobot).setInventory(CONE)
-    console.log(match.getRobot(selectedRobot).getInventory())
+    //match.getRobot(selectedRobot).setInventory(CONE);
+    //console.log(match.getRobot(selectedRobot).getInventory());
 }
 
 function doDoubleSubstation() {
@@ -45,6 +45,8 @@ function doMobilityBonus() {
 function doDisabled() {
     let robot = match.getRobot(selectedRobot);
     robot.disabled = !robot.disabled;
+    let robotBtn = getRobotButton(robot);
+    robotBtn.classList.toggle("robot-disabled");
     updateDisabledButtonText();
 }
 
@@ -67,30 +69,34 @@ function updateDisabledButtonText() {
 function updateButtonDisabledStates() {
     let robot = match ? match.getRobot(selectedRobot) : null;
     if (robot === null) {
-        document.getElementById("chargeStationRed").childNodes.forEach(x => {x.disabled = true;});
-        document.getElementById("chargeStationBlue").childNodes.forEach(x => {x.disabled = true;});
-        document.querySelector(".redSubstation").childNodes.forEach(x => {x.disabled = true;});
-        document.querySelector(".blueSubstation").childNodes.forEach(x => {x.disabled = true;});
-        document.querySelector(".centerBottom").childNodes.forEach(x => {
+        [...document.getElementById("chargeStationRed").children].forEach(x => {x.disabled = true;});
+        [...document.getElementById("chargeStationBlue").children].forEach(x => {x.disabled = true;});
+        [...document.querySelector(".redSubstation").children].forEach(x => {x.disabled = true;});
+        [...document.querySelector(".blueSubstation").children].forEach(x => {x.disabled = true;});
+        [...document.querySelector(".centerBottom").children].forEach(x => {
             if (x.classList.contains("gamePieceSelector")) return;
             x.disabled = true;
         });
-        document.getElementById("redAlliance").childNodes.forEach(x => {x.disabled = true;});
-        document.getElementById("blueAlliance").childNodes.forEach(x => {x.disabled = true;});
+        [...document.getElementById("redAlliance").children].forEach(x => {x.disabled = true;});
+        [...document.getElementById("blueAlliance").children].forEach(x => {x.disabled = true;});
     } else {
-        let isRed = robot.alliance.color === RED;
-        document.getElementById("chargeStationRed").childNodes.forEach(x => {x.disabled = !isRed;});
-        document.getElementById("chargeStationBlue").childNodes.forEach(x => {x.disabled = isRed;});
-        document.querySelector(".redSubstation").childNodes.forEach(x => {x.disabled = !isRed;});
-        document.querySelector(".blueSubstation").childNodes.forEach(x => {x.disabled = isRed;});
-        document.querySelector(".centerBottom").childNodes.forEach(x => {
+        let isRed = robot.color === RED;
+        [...document.getElementById("chargeStationRed").children].forEach(x => {x.disabled = !isRed;});
+        [...document.getElementById("chargeStationBlue").children].forEach(x => {x.disabled = isRed;});
+        [...document.querySelector(".redSubstation").children].forEach(x => {x.disabled = !isRed;});
+        [...document.querySelector(".blueSubstation").children].forEach(x => {x.disabled = isRed;});
+        [...document.querySelector(".centerBottom").children].forEach(x => {
             if (x.id === "mobilityBonusBtn") return;
             if (x.classList.contains("gamePieceSelector")) return;
             x.disabled = false;
         });
-        document.getElementById("redAlliance").childNodes.forEach(x => {x.disabled = !isRed;});
-        document.getElementById("blueAlliance").childNodes.forEach(x => {x.disabled = isRed;});
+        [...document.getElementById("redAlliance").children].forEach(x => {x.disabled = !isRed;});
+        [...document.getElementById("blueAlliance").children].forEach(x => {x.disabled = isRed;});
     }
+}
+
+function getRobotButton(robot) {
+    return document.querySelector(`#robots>button[data-alliance="${robot.color === RED ? "red" : "blue"}"][team-number="${robot.team}"]`);
 }
 
 document.querySelectorAll("button[data-alliance=\"red\"],button[data-alliance=\"blue\"]")
