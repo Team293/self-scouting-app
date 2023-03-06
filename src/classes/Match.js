@@ -355,6 +355,7 @@ class Match {
      * @method getRobot
      * @description Gets a robot
      * @memberof Match
+     * @param {object} robot robot data
      * @returns {Robot | null}
      */
     getRobot(robot) {
@@ -362,5 +363,56 @@ class Match {
         let alliance = robot.color === RED ? this.redAlliance : this.blueAlliance;
         let team = alliance.robots.find(x => x.team === robot.teamNumber);
         return team;
+    }
+
+    /**
+     * @method serialize
+     * @description Converts the match to JSON
+     * @memberof Match
+     * @returns {string}
+     */
+    serialize() {
+        let obj = {
+            archive: this.archive
+        };
+        obj.events = this.events.map(
+            x => ({robot: x.robot.team, eventType: x.eventType})
+        );
+        obj.redAlliance = {
+            color: this.redAlliance.color,
+            robots: this.redAlliance.robots.map(
+                x => ({team: x.team, startingPosition: x.startingPosition})
+            )
+        };
+        obj.blueAlliance = {
+            color: this.blueAlliance.color,
+            robots: this.blueAlliance.robots.map(
+                x => ({team: x.team, startingPosition: x.startingPosition})
+            )
+        };
+        return JSON.stringify(obj);
+    }
+
+    /**
+     * @function deserialize
+     * @description Converts a JSON representation of a match to the match itself
+     * @memberof Match
+     * @static
+     * @param {string} jsonRepresentation the JSON representation
+     * @returns {Match}
+     */
+    static deserialize(jsonRepresentation) {
+        let obj = JSON.parse(jsonRepresentation);
+        let teamNumbers = obj.redAlliance.robots.concat(obj.blueAlliance.robots).map(x => x.team);
+        let match = new Match(...teamNumbers);
+        for (let event of obj.events) {
+            let color = obj.redAlliance.robots.map(x => x.team).includes(event.robot) ? RED : BLUE;
+            match.events.push(new Event(
+                match,
+                match.getRobot({color: color, teamNumber: event.robot}),
+                event.eventType
+            ));
+        }
+        return match;
     }
 }

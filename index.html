@@ -15,6 +15,7 @@
         <script src="src/main.js" defer></script>
         <script src="src/computed_styles.js" defer></script>
         <script src="src/button_events.js" defer></script>
+        <script src="src/download_json.js" defer></script>
         <!-- APPLE TAGS -->
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <!-- FAVICON TAGS -->
@@ -137,6 +138,7 @@
                     <div class="break"><!-- I hate flexbox --></div>
                     <button class="gamePieceSelector" onclick="selectGamePiece(CUBE)">Cube</button>
                     <button class="gamePieceSelector" onclick="selectGamePiece(CONE)">Cone</button>
+                    <button id="downloadBtn" onclick="downloadSerializedMatch()">Download Match Data</button>
                 </div>
                 <div class="loadingZone redSubstation">
                     <button onclick="doSingleSubstation()" disabled>Single Subst.</button>
@@ -144,5 +146,6 @@
                 </div>
             </div>
         </div>
+        <a id="downloadAnchorElem" style="display:none"><!-- shhhh --></a>
     </body>
 </html>

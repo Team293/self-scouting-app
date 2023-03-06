@@ -1,5 +1,3 @@
-// TODO: Make these buttons actually work
-
 function robotButtonListener(button, event) {
     const teamNumber = button.getAttribute("team-number");
     const color = button.getAttribute("data-alliance") === "red" ? RED : BLUE;
@@ -58,7 +56,11 @@ function fieldButtonPressed(event) {
 
 function selectGamePiece(gamePiece) {
     selectedGamePieceType = gamePiece;
-    // todo: add selected
+    
+}
+
+function downloadSerializedMatch() {
+    downloadJson(match.serialize(), "match");
 }
 
 function updateDisabledButtonText() {
@@ -75,6 +77,7 @@ function updateButtonDisabledStates() {
         [...document.querySelector(".blueSubstation").children].forEach(x => {x.disabled = true;});
         [...document.querySelector(".centerBottom").children].forEach(x => {
             if (x.classList.contains("gamePieceSelector")) return;
+            if (x.id === "downloadBtn") return;
             x.disabled = true;
         });
         [...document.getElementById("redAlliance").children].forEach(x => {x.disabled = true;});
