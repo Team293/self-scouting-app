@@ -49,15 +49,13 @@ const BLUE = 1;
 /**
  * @object PICKUP The different pickup locations.
  * @property {number} FIELD The field.
- * @property {number} LOADING_DROP The loading drop.
- * @property {number} LOADING_SLIDE The loading slide.
- * @property {number} LOADING_CHUTE The loading chute.
+ * @property {number} SINGLE A single game piece.
+ * @property {number} DOUBLE A double game piece.
  */
 const PICKUP = {
-    FIELD: 0,
-    LOADING_DROP: 1,
-    LOADING_SLIDE: 2,
-    LOADING_CHUTE: 3,
+  FIELD: 0,
+  SINGLE: 1,
+  DOUBLE: 2,
 };
 
 /**
@@ -81,28 +79,28 @@ const PICKUP = {
  * @property {2} TELEOP.PARK (2 POINTS) The point value for parking the robot.
  */
 const POINT_VALUES = {
-    AUTO: {
-        MOBILITY: 3,
-        GAME_PIECES: {
-            TOP: 6,
-            MIDDLE: 4,
-            BOTTOM: 3,
-        },
-        DOCKED_NOT_ENGAGED: 8,
-        DOCKED_AND_ENGAGED: 12,
+  AUTO: {
+    MOBILITY: 3,
+    GAME_PIECES: {
+      TOP: 6,
+      MIDDLE: 4,
+      BOTTOM: 3,
     },
+    DOCKED_NOT_ENGAGED: 8,
+    DOCKED_AND_ENGAGED: 12,
+  },
 
-    TELEOP: {
-        GAME_PIECES: {
-            TOP: 5,
-            MIDDLE: 3,
-            BOTTOM: 2,
-        },
-        DOCKED_NOT_ENGAGED: 6,
-        DOCKED_AND_ENGAGED: 10,
-        LINK: 5,
-        PARK: 2,
+  TELEOP: {
+    GAME_PIECES: {
+      TOP: 5,
+      MIDDLE: 3,
+      BOTTOM: 2,
     },
+    DOCKED_NOT_ENGAGED: 6,
+    DOCKED_AND_ENGAGED: 10,
+    LINK: 5,
+    PARK: 2,
+  },
 };
 
 /**
@@ -118,13 +116,13 @@ const POINT_VALUES = {
  * @property {string} CHARGE_STATION_ENGAGE An event in which a robot engages with the charge station.
  */
 const EVENT_TYPES = {
-    PICK_UP_PIECE: "pick up piece",
-    DROP_PIECE: "drop piece",
-    SCORE_PIECE: "score piece",
-    DISLODGE_PIECE: "dislodge piece",
-    EARN_MOBILITY_BONUS: "earn mobility bonus",
-    DISABLED: "disabled",
-    ENABLED: "enabled",
-    CHARGE_STATION_DOCK: "charge station dock",
-    CHARGE_STATION_ENGAGE: "charge station engage",
+  PICK_UP_PIECE: "pick up piece",
+  DROP_PIECE: "drop piece",
+  SCORE_PIECE: "score piece",
+  DISLODGE_PIECE: "dislodge piece",
+  EARN_MOBILITY_BONUS: "earn mobility bonus",
+  DISABLED: "disabled",
+  ENABLED: "enabled",
+  CHARGE_STATION_DOCK: "charge station dock",
+  CHARGE_STATION_ENGAGE: "charge station engage",
 };

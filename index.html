@@ -61,9 +61,11 @@
                         class="mono"
                         style="color: #000; padding-right: 9px"
                         >00:00.00</span
-                    >/ 2:15
+                    >/ 2:30
                 </h3>
                 <h4 id="matchState" class="bold">AUTO</h4>
+                <h4>|</h4>
+                <h4 id="matchSelectedPiece" class="bold" data-type="cone">CONE</h4>
             </div>
             <div class="third">
                 <div class="flex">
@@ -97,7 +99,7 @@
             <input type="number" id="blue-teamnum-1" value="293"></input>
             <input type="number" id="blue-teamnum-2" value="293"></input>
             <input type="number" id="blue-teamnum-3" value="293"></input>
-            <button onclick="doInitialInput()">Finish setup</button>
+            <button class="default-button" onclick="doInitialInput()">Finish setup</button>
         </div>
         <!-- BOARD -->
         <div id="board" style="display:none">
@@ -134,10 +136,10 @@
                     <button onclick="doFieldPickup()" disabled>Field Pickup</button>
                     <button onclick="doFieldDrop()" disabled>Field Drop</button>
                     <button id="mobilityBonusBtn" onclick="doMobilityBonus()" disabled>Mobility Bonus</button>
-                    <button id="disabledBtn" onclick="doDisabled()" disabled>Disabled</button>
+                    <button id="disabledBtn" onclick="doDisabled()" disabled>Disable</button>
                     <div class="break"><!-- I hate flexbox --></div>
-                    <button class="gamePieceSelector" onclick="selectGamePiece(CUBE)">Cube</button>
-                    <button class="gamePieceSelector" onclick="selectGamePiece(CONE)">Cone</button>
+                    <button class="gamePieceSelector" id="cubeSelector" onclick="selectGamePiece(CUBE)">Cube</button>
+                    <button class="gamePieceSelector" id="coneSelector" onclick="selectGamePiece(CONE)">Cone</button>
                     <button id="downloadBtn" onclick="downloadSerializedMatch()">Download Match Data</button>
                 </div>
                 <div class="loadingZone redSubstation">
