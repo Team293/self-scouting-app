@@ -129,7 +129,7 @@ class DOMElement {
      * @description Calculate the styles for the DOMElement
      */
     calculateStyles(styles) {
-        const style = copy(styles);
+        const style = copyObj(styles);
 
         if (this.disabled === true) {
             for (const key in styles.disabled) {
@@ -172,22 +172,22 @@ class DOMElement {
         if (typeof value === "string") {
             if (value.endsWith("%")) {
                 value = value.slice(0, -1);
-                return (percent * parseInt(value)) / 100;
+                return (percent * Number(value)) / 100;
             }
 
             if (value.endsWith("px")) {
                 value = value.slice(0, -2);
-                return parseInt(value);
+                return Number(value);
             }
 
             if (value.endsWith("vw")) {
                 value = value.slice(0, -2);
-                return (windowWidth * parseInt(value)) / 100;
+                return (windowWidth * Number(value)) / 100;
             }
 
             if (value.endsWith("vh")) {
                 value = value.slice(0, -2);
-                return (windowHeight * parseInt(value)) / 100;
+                return (windowHeight * Number(value)) / 100;
             }
         }
 
@@ -248,5 +248,9 @@ class DOMElement {
 
     onUpdate() {
         // Override this function to update the element
+    }
+
+    clickEvent(x, y) {
+        // Override this function to add a click event
     }
 }

@@ -28,7 +28,7 @@ function setColor(color, func) {
     }
 }
 
-function copy(obj) {
+function copyObj(obj) {
     if (typeof obj !== "object") return obj;
 
     return JSON.parse(JSON.stringify(obj));

@@ -1,0 +1,3 @@
+class NavButton extends Button {
+    
+}

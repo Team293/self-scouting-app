@@ -61,8 +61,8 @@ class Button extends DOMElement {
         return value;
     }
 
-    updateState(mouseIsPressed = false) {
-        this.isHovered();
+    updateState(mx, my, mouseIsPressed) {
+        this.isHovered(mx, my);
 
         if (this.hovered && mouseIsPressed && !this.active && !this.disabled) {
             this.onClick();
@@ -73,23 +73,29 @@ class Button extends DOMElement {
         if (!mouseIsPressed) {
             this.active = false;
         }
+
+        if (this.active) {
+            return false;
+        }
+
         return true;
     }
 
-    isHovered() {
+    isHovered(x, y) {
         if (
-            mouseX > this.calculated.x &&
-            mouseX < this.calculated.x + this.calculated.width &&
-            mouseY > this.calculated.y &&
-            mouseY < this.calculated.y + this.calculated.height
+            x > this.calculated.x &&
+            x < this.calculated.x + this.calculated.width &&
+            y > this.calculated.y &&
+            y < this.calculated.y + this.calculated.height
         ) {
             this.hovered = true;
             if (!this.disabled) {
                 cursor(HAND);
             }
-        } else {
-            this.hovered = false;
+            return true;
         }
+
+        this.hovered = false;
     }
 
     onClick() {

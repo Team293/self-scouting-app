@@ -1779,7 +1779,7 @@ function Q5(e) {
       );
     }
     n.canvas.ontouchstart = function (e) {
-      (n.touches = e.touches.map(O)),
+      try{n.touches = e.touches.map(O)}catch(e){return;}
         k() &&
           ((n.pmouseX = n.mouseX),
           (n.pmouseY = n.mouseY),
@@ -1791,7 +1791,7 @@ function Q5(e) {
         n._touchStartedFn(e) || e.preventDefault();
     };
     n.canvas.ontouchmove = function (e) {
-      (n.touches = e.touches.map(O)),
+      try{n.touches = e.touches.map(O)}catch(e){return;}
         k() &&
           ((n.pmouseX = n.mouseX),
           (n.pmouseY = n.mouseY),
@@ -1803,7 +1803,7 @@ function Q5(e) {
         n._touchMovedFn(e) || e.preventDefault();
     };
     n.canvas.ontouchend = n.canvas.ontouchcancel = function (e) {
-      (n.touches = e.touches.map(O)),
+      try{n.touches = e.touches.map(O)}catch(e){return;}
         k() &&
           ((n.pmouseX = n.mouseX),
           (n.pmouseY = n.mouseY),
