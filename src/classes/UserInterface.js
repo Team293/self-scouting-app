@@ -54,7 +54,9 @@ const UserInterface = {
    * @memberof UserInterface
    */
   updateMobilityBonus(isAuto) {
-    this.mobilityBonusButton.disabled = selectedRobot === null || !isAuto;
+    if (!isAuto) {
+      this.mobilityBonusButton.disabled = true;
+    }
   },
 
   /**

@@ -117,6 +117,7 @@ const POINT_VALUES = {
  */
 const EVENT_TYPES = {
   PICK_UP_PIECE: "pick up piece",
+  SET_INVENTORY: "set inventory",
   DROP_PIECE: "drop piece",
   SCORE_PIECE: "score piece",
   DISLODGE_PIECE: "dislodge piece",
@@ -124,5 +125,7 @@ const EVENT_TYPES = {
   DISABLED: "disabled",
   ENABLED: "enabled",
   CHARGE_STATION_DOCK: "charge station dock",
+  CHARGE_STATION_UNDOCK: "charge station undock",
   CHARGE_STATION_ENGAGE: "charge station engage",
+  CHARGE_STATION_DISENGAGE: "charge station disengage",
 };

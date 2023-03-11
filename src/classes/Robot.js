@@ -22,6 +22,10 @@ class Robot {
     this.startingPosition = startingPosition;
     this.startingPosition = CENTER;
     this.disabled = false;
+    this.mobilityBonusEarned = false;
+
+    this.docked = false;
+    this.engaged = false;
   }
 
   /**
@@ -34,12 +38,27 @@ class Robot {
   }
 
   /**
+   * @function clearInventory
+   * @description Clears the inventory of the robot
+   * @memberof Robot
+   */
+  clearInventory() {
+    this.alliance.match.events.push(
+      new ClearInventoryEvent(this.alliance.match, this)
+    );
+    this.inventory = EMPTY;
+  }
+
+  /**
    * @function setInventory
    * @description Sets the inventory of the robot
    * @param {number} gamePiece The game piece to set the inventory to
    * @memberof Robot
    */
   setInventory(gamePiece) {
+    this.alliance.match.events.push(
+      new SetInventoryEvent(this.alliance.match, this, gamePiece)
+    )
     this.inventory = gamePiece;
   }
 
@@ -52,7 +71,7 @@ class Robot {
    */
   pickUp(gamePiece, location) {
     if (this.inventory === EMPTY) {
-      this.inventory = gamePiece;
+      this.inventory(gamePiece);
       this.alliance.match.events.push(
         new PickUpEvent(this.alliance.match, this, location, gamePiece)
       );
@@ -70,7 +89,7 @@ class Robot {
    * @memberof Robot
    */
   scorePiece(location) {
-    if (this.inventory === EMPTY) {
+    if (this.inventory !== EMPTY) {
       const game = this.alliance.match;
       // Get the field state and check if there is a game piece there
       const { scoringGrid: fieldState } = game.scoring.getFieldState();
@@ -83,15 +102,9 @@ class Robot {
         );
       }
       // Score the game piece
-      game.events.push({
-        type: "scoreGamePiece",
-        team: this.team,
-        gamePiece: this.inventory,
-        alliance: this.alliance.color,
-        location: location,
-        time: game.timer.time,
-        auto: game.mode.isAuto(),
-      });
+      game.events.push(
+        new ScorePieceEvent(game, this, location, this.inventory)
+      );
       this.inventory = EMPTY;
     } else {
       throw new Error(
@@ -108,12 +121,8 @@ class Robot {
   mobilityBonus() {
     const game = this.alliance.match;
     if (game.mode.isAuto()) {
-      game.events.push({
-        type: "mobilityBonus",
-        team: this.team,
-        alliance: this.alliance.color,
-        time: game.timer.time,
-      });
+      this.mobilityBonusEarned = true;
+      game.events.push(new EarnMobilityEvent(game, this));
     } else {
       throw new Error(
         "Mobility bonus can only be awarded during Autonomous mode."
@@ -144,5 +153,32 @@ class Robot {
 
   get color() {
     return this.alliance.color;
+  }
+
+  toggleEnabled() {
+    this.disabled = !this.disabled;
+    if (this.disabled) {
+      this.alliance.match.events.push(new DisabledEvent(this.alliance.match, this));
+    } else {
+      this.alliance.match.events.push(new EnabledEvent(this.alliance.match, this));
+    }
+  }
+
+  toggleDocked() {
+    this.docked = !this.docked;
+    if (this.docked) {
+      this.alliance.match.events.push(new DockEvent(this.alliance.match, this));
+    } else {
+      this.alliance.match.events.push(new UndockEvent(this.alliance.match, this));
+    }
+  }
+
+  toggleEngaged() {
+    this.engaged = !this.engaged;
+    if (this.engaged) {
+      this.alliance.match.events.push(new EngageEvent(this.alliance.match, this));
+    } else {
+      this.alliance.match.events.push(new DisengageEvent(this.alliance.match, this));
+    }
   }
 }

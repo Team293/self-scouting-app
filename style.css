@@ -49,13 +49,13 @@ body {
   flex-direction: column;
 }
 
-.default-button {
+.default-button, label {
   outline: #aaa 1px solid;
   border-radius: 5px;
-  padding: 4px;
+  padding: 4px !important;
 }
 
-button {
+button, label {
   outline: none;
   border: none;
   padding: 0;
@@ -68,11 +68,17 @@ button {
   font-size: 2.5vh;
 }
 
-button:hover {
+input[type=file] {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+button:hover, label:hover {
   background-color: #ccc;
 }
 
-button:active {
+button:active, label:active {
   background-color: #aaa;
 }
 
@@ -296,11 +302,11 @@ div {
 }
 
 i {
-  font-size: 1.7rem;
+  font-size: 4vh;
 }
 
 i.big {
-  font-size: 2.1rem;
+  font-size: 4vh;
 }
 
 .centerBottom {
@@ -474,8 +480,8 @@ input {
 }
 
 .inventory[data-type="cube"] {
-  width: 20px;
-  height: 20px;
+  width: 3vh;
+  height: 3vh;
   background-color: var(--light-purple);
 }
 
@@ -483,6 +489,6 @@ input {
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 0 10px 20px 10px;
+  border-width: 0 1.5vh 3vh 1.5vh;
   border-color: transparent transparent var(--light-yellow) transparent;
 }
