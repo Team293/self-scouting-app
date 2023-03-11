@@ -4,7 +4,8 @@ function hexToRgb(hex) {
 
     // If the input string is not valid, throw an error
     if (!result) {
-        throw new Error("Invalid hex color: " + hex);
+        // throw new Error("Invalid hex color: " + hex);
+        return null;
     }
 
     return result
@@ -19,11 +20,12 @@ function hexToRgb(hex) {
 function setColor(color, func) {
     try {
         color = hexToRgb(color);
+        func(color.r, color.g, color.b);
     } catch (e) {
-        console.error(e);
+        // console.error(e);
+        func(0, 0, 0);
         return;
     }
-    func(color.r, color.g, color.b);
 }
 
 function copy(obj) {
