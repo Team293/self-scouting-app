@@ -4,29 +4,15 @@ class Button extends DOMElement {
 
         // Default attributes
         this.content = "Button";
-        this.state = "default";
+        this.active = false;
+        this.disabled = false;
+        this.hovered = false;
 
         this.loadKeys(parameters);
     }
 
     render(styles) {
-        this.updateState();
-        if (this.hovered) {
-            cursor(HAND);
-            if (mouseIsPressed && !this.active) {
-                this.onClick();
-                this.active = true;
-            }
-
-            if (!mouseIsPressed) {
-                this.active = false;
-            }
-        }
-
-        if (this.state === "active") {
-            styles.backgroundColor = this.styles.active.backgroundColor;
-            styles.textColor = this.styles.active.textColor;
-        }
+        this.isHovered();
 
         noStroke();
         setColor(styles.backgroundColor, fill);
@@ -53,6 +39,10 @@ class Button extends DOMElement {
             this.calc(styles.borderRadius)
         );
 
+        this.renderContent(styles, width, height);
+    }
+
+    renderContent(styles, width, height) {
         textSize(styles.fontSize);
         textAlign(CENTER, CENTER);
         setColor(styles.textColor, fill);
@@ -71,7 +61,22 @@ class Button extends DOMElement {
         return value;
     }
 
-    updateState() {
+    updateState(mouseIsPressed = false) {
+        this.isHovered();
+
+        if (this.hovered && mouseIsPressed && !this.active && !this.disabled) {
+            this.onClick();
+            this.active = true;
+            return false;
+        }
+
+        if (!mouseIsPressed) {
+            this.active = false;
+        }
+        return true;
+    }
+
+    isHovered() {
         if (
             mouseX > this.calculated.x &&
             mouseX < this.calculated.x + this.calculated.width &&
@@ -79,6 +84,9 @@ class Button extends DOMElement {
             mouseY < this.calculated.y + this.calculated.height
         ) {
             this.hovered = true;
+            if (!this.disabled) {
+                cursor(HAND);
+            }
         } else {
             this.hovered = false;
         }
@@ -86,9 +94,5 @@ class Button extends DOMElement {
 
     onClick() {
         // Override this function
-    }
-
-    setContent(content) {
-        this.content = content;
     }
 }

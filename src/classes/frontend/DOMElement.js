@@ -1,11 +1,14 @@
-const ALIGN = {
-    top: 0,
-    left: 0,
-    center: 0.5,
-    bottom: 1,
-    right: 1,
-};
+/**
+ * @fileoverview DOMElement class
+ * @name DOMElement.js
+ * @description DOMElement class
+ */
 
+/**
+ * @class DOMElement
+ * @description DOMElement class
+ * @param {object} parameters The parameters for the DOMElement
+ */
 class DOMElement {
     constructor(parameters) {
         this.width = null;
@@ -28,6 +31,7 @@ class DOMElement {
             borderWidth: 0,
             active: {},
             hover: {},
+            disabled: {},
         };
 
         this.calculated = {};
@@ -37,6 +41,12 @@ class DOMElement {
         render.push(this);
     }
 
+    /**
+     * @function loadKeys
+     * @description Load the parameters from the constructor
+     * @param {object} parameters The parameters for the DOMElement
+     * @param {object} object The object to load the keys into
+     */
     loadKeys(parameters, object = this) {
         // Load parameters from constructor
         for (const key in parameters) {
@@ -49,8 +59,12 @@ class DOMElement {
         this.resize();
     }
 
+    /**
+     * @function loadStyles
+     * @description Load the styles from the constructor
+     * @param {object} styles The styles for the DOMElement
+     */
     loadStyles(styles, object = this.styles) {
-        console.log(styles, object);
         // Loop over the styles object
         for (const key in styles) {
             const value = styles[key];
@@ -84,6 +98,13 @@ class DOMElement {
         }
     }
 
+    /**
+     * @function loadKey
+     * @description Load the key from the constructor
+     * @param {object} object The object to load the key into
+     * @param {string} key The key to load
+     * @param {any} value The value to load
+     */
     loadKey(object, key, value) {
         // Check that object key is not undefined
         if (typeof value === "object") {
@@ -103,8 +124,19 @@ class DOMElement {
         object[key] = value;
     }
 
+    /**
+     * @function calculateStyles
+     * @description Calculate the styles for the DOMElement
+     */
     calculateStyles(styles) {
         const style = copy(styles);
+
+        if (this.disabled === true) {
+            for (const key in styles.disabled) {
+                style[key] = styles.disabled[key];
+            }
+            return style;
+        }
 
         if (this.active === true) {
             for (const key in styles.active) {
@@ -127,7 +159,9 @@ class DOMElement {
         const styles = this.calculateStyles(
             this.calculated.styles ?? this.styles
         );
+        push();
         this.render(styles);
+        pop();
     }
 
     calc(value, percent = undefined) {
@@ -192,7 +226,6 @@ class DOMElement {
 
     resize() {
         this.calculated = this.calculateValues();
-        // delete this.calculated.calculated;
         delete this.calculated.calculated;
 
         this.calculated.x = this.calc(this.x, windowWidth);
@@ -202,8 +235,18 @@ class DOMElement {
 
         // Align the element using style.verticalAlign and style.horizontalAlign
         this.calculated.x -=
-            this.calculated.width * ALIGN[this.styles.horizontalAlign];
+            this.calculated.width *
+            ALIGN[this.styles.horizontalAlign.toUpperCase()];
         this.calculated.y -=
-            this.calculated.height * ALIGN[this.styles.verticalAlign];
+            this.calculated.height *
+            ALIGN[this.styles.verticalAlign.toUpperCase()];
+    }
+
+    updateState() {
+        return true;
+    }
+
+    onUpdate() {
+        // Override this function to update the element
     }
 }
