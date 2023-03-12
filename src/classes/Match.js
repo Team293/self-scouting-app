@@ -17,13 +17,14 @@ class Match {
    * @param {string} team5 Team number of the fifth team (blue)
    * @param {string} team6 Team number of the sixth team (blue)
    */
-  constructor(team1, team2, team3, team4, team5, team6, matchType, compType) {
+  constructor(team1, team2, team3, team4, team5, team6, matchType, compType, matchNumber) {
     this.archive = false;
     this.redAlliance = new Alliance(this, RED, team1, team2, team3);
     this.blueAlliance = new Alliance(this, BLUE, team4, team5, team6);
 
     this.matchType = matchType;
     this.compType = compType;
+    this.matchNumber = matchNumber;
 
     this.events = [];
 
@@ -233,8 +234,8 @@ class Match {
 
           // If the event is a mobilityBonus event
           if (event.type === EVENT_TYPES.EARN_MOBILITY_BONUS) {
-            const { alliance, auto } = event;
-            if (auto) {
+            const { alliance, isAuto } = event;
+            if (isAuto) {
               score[alliance] += POINT_VALUES.AUTO.MOBILITY;
             } else {
               throw new Error("Mobility bonus can only be awarded in auto");
@@ -387,6 +388,8 @@ class Match {
   serialize() {
     let obj = {
       archive: this.archive,
+      matchType: this.matchType,
+      compType: this.compType
     };
     obj.events = this.events.map((x) => ({
       robot: x.robot.team,
@@ -418,6 +421,7 @@ class Match {
    * @returns {Match}
    */
   static deserialize(jsonRepresentation) {
+    // do we still need this
     let obj = JSON.parse(jsonRepresentation);
     let teamNumbers = obj.redAlliance.robots
       .concat(obj.blueAlliance.robots)

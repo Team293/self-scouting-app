@@ -472,11 +472,11 @@ input {
 }
 
 .cone-node {
-  border: var(--light-yellow) 2px solid;
+  color: var(--light-yellow);
 }
 
 .cube-node {
-  border: var(--light-purple) 2px solid;
+  color: var(--light-purple);
 }
 
 *[data-type="cone"] {
@@ -503,4 +503,22 @@ input {
   border-style: solid;
   border-width: 0 1.5vh 3vh 1.5vh;
   border-color: transparent transparent var(--light-yellow) transparent;
+}
+
+.red-team-input {
+  background-color: var(--light-red);
+}
+
+.blue-team-input {
+  background-color: var(--light-blue);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }

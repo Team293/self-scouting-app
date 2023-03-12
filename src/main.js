@@ -11,7 +11,8 @@ function doInitialInput() {
     document.getElementById("blue-teamnum-2").value,
     document.getElementById("blue-teamnum-3").value,
     MATCH_TYPES[document.getElementById("matchType").value],
-    COMPETITION_TYPES[document.getElementById("compType").value]
+    COMPETITION_TYPES[document.getElementById("compType").value],
+    document.getElementById("match-number").value
   );
   setInterval(() => {
     loop();

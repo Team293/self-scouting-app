@@ -94,12 +94,12 @@
         </nav>
         <!-- INITIAL INPUT -->
         <div id="initial-input">
-            <input type="number" id="red-teamnum-1" value="293"></input>
-            <input type="number" id="red-teamnum-2" value="294"></input>
-            <input type="number" id="red-teamnum-3" value="295"></input>
-            <input type="number" id="blue-teamnum-1" value="296"></input>
-            <input type="number" id="blue-teamnum-2" value="297"></input>
-            <input type="number" id="blue-teamnum-3" value="298"></input>
+            <input type="number" id="red-teamnum-1" value="293" class="red-team-input"></input>
+            <input type="number" id="red-teamnum-2" value="294" class="red-team-input"></input>
+            <input type="number" id="red-teamnum-3" value="295" class="red-team-input"></input>
+            <input type="number" id="blue-teamnum-1" value="296" class="blue-team-input"></input>
+            <input type="number" id="blue-teamnum-2" value="297" class="blue-team-input"></input>
+            <input type="number" id="blue-teamnum-3" value="298" class="blue-team-input"></input>
             <br/>
             <label for="matchType">Match Type:</label>
             <select id="matchType" name="matchType">
@@ -116,6 +116,8 @@
                 <option value="WORLDS">Worlds</option>
                 <option value="" selected>N/a</option>
             </select>
+            <label for="match-number">Match number:</label>
+            <input type="number" name="match-number" id="match-number" value="1"></input>
             <button class="default-button" onclick="doInitialInput()">Finish setup</button>
         </div>
         <!-- BOARD -->
