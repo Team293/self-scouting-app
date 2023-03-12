@@ -81,7 +81,28 @@ function toggleEnabled() {
 function fieldButtonPressed(event) {
   const index = parseInt(event.target.getAttribute("data-index"));
   const color = event.target.parentElement == redAlliance ? RED : BLUE;
-  console.log(index, color);
+  const btn = event.target;
+  const robot = match.getRobot(selectedRobot);
+  let isHybridNode = index >= 18;
+  let isCubeNode = index % 3 === 1;
+  let isConeNode = !isCubeNode;
+  let heldPiece = robot.inventory;
+  let currentPiece = match.scoring.getFieldState(match.events).scoringGrid[color === RED ? "red" : "blue"][index][0] ?? EMPTY;
+  if (currentPiece !== EMPTY) {
+    btn.innerHTML = index.toString();
+    match.events.push(new DislodgePieceEvent(match, robot, index));
+    return;
+  }
+  if (heldPiece === EMPTY) return;
+  let canPlacePiece = isHybridNode || (isCubeNode && heldPiece === CUBE) || (isConeNode && heldPiece === CONE);
+  if (!canPlacePiece) return;
+  robot.clearInventory();
+  let icon = document.createElement("div");
+  icon.classList.add("inventory");
+  icon.setAttribute("data-type", heldPiece === CUBE ? "cube" : "cone");
+  btn.innerHTML = "";
+  btn.appendChild(icon);
+  match.events.push(new ScorePieceEvent(match, robot, index, heldPiece));
 }
 
 function selectGamePiece(gamePiece) {

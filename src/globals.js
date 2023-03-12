@@ -118,6 +118,7 @@ const POINT_VALUES = {
 const EVENT_TYPES = {
   PICK_UP_PIECE: "pick up piece",
   SET_INVENTORY: "set inventory",
+  CLEAR_INVENTORY: "clear inventory",
   DROP_PIECE: "drop piece",
   SCORE_PIECE: "score piece",
   DISLODGE_PIECE: "dislodge piece",
@@ -128,4 +129,17 @@ const EVENT_TYPES = {
   CHARGE_STATION_UNDOCK: "charge station undock",
   CHARGE_STATION_ENGAGE: "charge station engage",
   CHARGE_STATION_DISENGAGE: "charge station disengage",
+};
+
+const MATCH_TYPES = {
+  PRACTICE: "practice",
+  QUALIFIER: "qualifier",
+  PLAYOFFS: "playoffs"
+};
+
+const COMPETITION_TYPES = {
+  ROBBINS: "robbins",
+  MONTY: "monty",
+  LEHIGH: "lehigh", // probably not lmaooooooooo
+  WORLDS: "worlds" // lol lmao you thought
 };

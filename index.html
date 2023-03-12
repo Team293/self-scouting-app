@@ -16,6 +16,7 @@
         <script src="src/computed_styles.js" defer></script>
         <script src="src/button_events.js" defer></script>
         <script src="src/download_json.js" defer></script>
+        <script type="module" src="src/upload.js"></script>
         <!-- APPLE TAGS -->
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <!-- FAVICON TAGS -->
@@ -99,6 +100,22 @@
             <input type="number" id="blue-teamnum-1" value="296"></input>
             <input type="number" id="blue-teamnum-2" value="297"></input>
             <input type="number" id="blue-teamnum-3" value="298"></input>
+            <br/>
+            <label for="matchType">Match Type:</label>
+            <select id="matchType" name="matchType">
+                <option value="PRACTICE">Practice</option>
+                <option value="QUALIFIER">Qualifier</option>
+                <option value="PLAYOFFS">Playoffs</option>
+                <option value="" selected>N/a</option>
+            </select>
+            <label for="compType">Competition Type:</label>
+            <select id="compType" name="compType">
+                <option value="ROBBINS">Robbinsville</option>
+                <option value="MONTY">Montgomery</option>
+                <option value="LEHIGH">Lehigh</option>
+                <option value="WORLDS">Worlds</option>
+                <option value="" selected>N/a</option>
+            </select>
             <button class="default-button" onclick="doInitialInput()">Finish setup</button>
         </div>
         <!-- BOARD -->

@@ -471,12 +471,24 @@ input {
   padding: 3px;
 }
 
+.cone-node {
+  border: var(--light-yellow) 2px solid;
+}
+
+.cube-node {
+  border: var(--light-purple) 2px solid;
+}
+
 *[data-type="cone"] {
   color: var(--light-yellow);
 }
 
 *[data-type="cube"] {
   color: var(--light-purple);
+}
+
+.inventory {
+  margin: auto;
 }
 
 .inventory[data-type="cube"] {

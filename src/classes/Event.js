@@ -18,6 +18,9 @@ class Event {
     this.eventType = eventType;
     this.time = this.match.timer.time;
   }
+
+  get type() {return this.eventType;}
+  get isAuto() {return this.time < 15;}
 }
 
 /**
@@ -51,6 +54,18 @@ class SetInventoryEvent extends Event {
 }
 
 /**
+ * Represents a clear inventory event in FRC Matches.
+ * @class ClearInventoryEvent
+ * @param {Match} match
+ * @param {Robot} robot
+ */
+class ClearInventoryEvent extends Event {
+  constructor(match, robot) {
+    super(match, robot, EVENT_TYPES.CLEAR_INVENTORY);
+  }
+}
+
+/**
  * Represents a score piece event in FRC Matches.
  * @class ScorePieceEvent
  * @param {Match} match
@@ -62,6 +77,28 @@ class ScorePieceEvent extends Event {
     super(match, robot, EVENT_TYPES.SCORE_PIECE);
     this.gridPosition = gridPosition;
     this.pieceType = pieceType;
+  }
+
+  get location() {
+    return this.gridPosition < 9 ? TOP : this.gridPosition < 18 ? MIDDLE : BOTTOM;
+  }
+}
+
+/**
+ * Represents a dislodge piece event in FRC Matches.
+ * @class DislodgePieceEvent
+ * @param {Match} match
+ * @param {Robot} robot
+ * @param {number} gridPosition
+ */
+ class DislodgePieceEvent extends Event {
+  constructor(match, robot, gridPosition) {
+    super(match, robot, EVENT_TYPES.DISLODGE_PIECE);
+    this.gridPosition = gridPosition;
+  }
+
+  get location() {
+    return this.gridPosition < 9 ? TOP : this.gridPosition < 18 ? MIDDLE : BOTTOM;
   }
 }
 

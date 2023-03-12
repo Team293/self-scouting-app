@@ -17,10 +17,13 @@ class Match {
    * @param {string} team5 Team number of the fifth team (blue)
    * @param {string} team6 Team number of the sixth team (blue)
    */
-  constructor(team1, team2, team3, team4, team5, team6) {
+  constructor(team1, team2, team3, team4, team5, team6, matchType, compType) {
     this.archive = false;
     this.redAlliance = new Alliance(this, RED, team1, team2, team3);
     this.blueAlliance = new Alliance(this, BLUE, team4, team5, team6);
+
+    this.matchType = matchType;
+    this.compType = compType;
 
     this.events = [];
 
@@ -193,8 +196,8 @@ class Match {
       getFieldState(events) {
         // Create an object that represents the scoring grid
         const scoringGrid = {
-          red: new Array(27).fill([]), // 9x3 grid
-          blue: new Array(27).fill([]), // 9x3 grid
+          red: new Array(27).fill(0).map(x=>[]), // 9x3 grid
+          blue: new Array(27).fill(0).map(x=>[]), // 9x3 grid
         };
 
         // Create an object to keep track of the score for each alliance
@@ -206,20 +209,30 @@ class Match {
         // Loop through each event
         for (const event of events) {
           // If the event is a placeGamePiece event
-          if (event.type === "placeGamePiece") {
-            const { alliance, location, auto } = event;
+          if (event.type === EVENT_TYPES.SCORE_PIECE) {
+            const { robot, location } = event;
+            const alliance = robot.color === RED ? "red" : "blue";
             // Location is the index of the array
-            scoringGrid[alliance][location].push(event.matchPiece);
+            scoringGrid[alliance][event.gridPosition].push(event.pieceType);
             // Row is the top, middle, or bottom
             const row = this.getPieceRow(location);
             // autoOrTeleop is "AUTO" or "TELEOP" depending on the time
-            const autoOrTeleop = auto ? "AUTO" : "TELEOP";
+            const autoOrTeleop = event.isAuto ? "AUTO" : "TELEOP";
             // Add the points to the score
-            score[alliance] += POINT_VALUES[autoOrTeleop].match_PIECES[row];
+            score[alliance] += POINT_VALUES[autoOrTeleop].GAME_PIECES[row];
+          }
+          if (event.type === EVENT_TYPES.DISLODGE_PIECE) {
+            const { robot, location } = event;
+            const alliance = robot.color === RED ? "red" : "blue";
+            let oldPiece = scoringGrid[alliance][event.gridPosition];
+            scoringGrid[alliance][event.gridPosition] = [];
+            const row = this.getPieceRow(location);
+            const autoOrTeleop = event.isAuto ? "AUTO" : "TELEOP";
+            //score[alliance] -= POINT_VALUES[autoOrTeleop].GAME_PIECES[row];
           }
 
           // If the event is a mobilityBonus event
-          if (event.type === "mobilityBonus") {
+          if (event.type === EVENT_TYPES.EARN_MOBILITY_BONUS) {
             const { alliance, auto } = event;
             if (auto) {
               score[alliance] += POINT_VALUES.AUTO.MOBILITY;
@@ -425,5 +438,18 @@ class Match {
       );
     }
     return match;
+  }
+
+  /**
+   * @function getCurrentScore
+   * @description Gets the current score of the match
+   * @memberof Match
+   * @returns {number, number}
+   */
+  getCurrentScore() {
+    for (let event of this.events) {
+      // todo
+    }
+    return [0, 0];
   }
 }
