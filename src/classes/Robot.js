@@ -165,7 +165,7 @@ class Robot {
   }
 
   toggleDocked() {
-    if (this.engaged && this.docked) return;
+    if (this.docked && this.engaged) this.toggleEngaged();
     this.docked = !this.docked;
     if (this.docked) {
       this.alliance.match.events.push(new DockEvent(this.alliance.match, this));

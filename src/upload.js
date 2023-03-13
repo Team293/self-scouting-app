@@ -1,38 +1,87 @@
-// import PocketBase from 'pocketbase';
+let authData = null;
 
-// const pb = new PocketBase('https://immense-scooter.pockethost.io');
+class DatabaseConnector {
+    constructor() {
+        const PocketBase = window.PocketBase;
+        this.pb = new PocketBase("https://immense-scooter.pockethost.io");
+    }
 
-// TODO: AUTHENTICATION
+    async authenticate(email, password) {
+        console.log("Authenticating...");
+        this.auth = await this.pb.admins.authWithPassword(email, password)
+        .catch((err) => {
+            console.log("Something went wrong. Likely invalid credentials.");
+        });
+    }
 
-/*
-GET TEAMS FROM DATABASE, OR GENERATE NEW TEAMS
+    async export() {
 
-*/
+    }
 
-/*
-GENERATE FIELD STATES
-scoring grid for red and blue alliance as two Array[27] grids
-*/
+    async generateMatch(match) {
+        if (!this.auth) {
+            console.log("Not authenticated. Please authenticate first.");
+            return;
+        }
 
-/*
-LOOP OVER EVENTS AND CREATE NEW EVENT RECORDS
+        // Loop over each team and generate the teams necessary data
+        const redAlliance = [];
+        console.log("LOADING RED ALLIANCE");
+        await match.redAlliance.robots.forEach(async (robot) => {
+            const teamId = robot.team;
+            // get team data from database
+            const record = await this.pb.collection('teams').getFirstListItem('teamNumber=' + teamId, { '$autoCancel': false })
+            .catch((err) => {
+                return null;
+            });
 
-const eventIds = [];
- 
-const data = {
-    "type": "itemPickup",
-    "team": "RELATION_RECORD_ID",
-    "fieldState": "RELATION_RECORD_ID",
-    "event": "JSON"
-};
+            if (record !== null) {
+                console.log("Team found: " + teamId);
+                redAlliance.push(record);
+            } else {
+                console.log("Team not found: " + teamId);
+                console.log("Creating team...");
+                const team = {
+                    teamNumber: teamId,
+                    teamName: "Team " + teamId,
+                };
+                const record = await this.pb.collection('teams').create(team, { '$autoCancel': false });
+                redAlliance.push(record);
+            }
+        });
 
-for event in events:
-    let record = await pb.collection("events").create(<event_data>);
-    add record.id to event ids
-*/
+        const blueAlliance = [];
+        console.log("LOADING BLUE ALLIANCE");
+        await match.blueAlliance.robots.forEach(async (robot) => {
+            const teamId = robot.team;
+            // get team data from database
+            const record = await this.pb.collection('teams').getFirstListItem('teamNumber=' + teamId, { '$autoCancel': false })
+            .catch((err) => {
+                return null;
+            });
+
+            if (record !== null) {
+                console.log("Team found: " + teamId);
+                redAlliance.push(record);
+            } else {
+                console.log("Team not found: " + teamId);
+                console.log("Creating team...");
+                const team = {
+                    teamNumber: teamId,
+                    teamName: "Team " + teamId,
+                };
+                const record = await this.pb.collection('teams').create(team);
+                redAlliance.push(record);
+            }
+        });
+    } 
+}
 
 
-// async function upload(match) {
-//     let record = await pb.collection("games").create(match.serialize());
-//     return record;
-// }
+async function generateTest(match) {
+    const db = new DatabaseConnector();
+    await db.authenticate(document.getElementById("email").value, document.getElementById("password").value);
+    await db.generateMatch(match);
+}
+
+window.generateTest = generateTest;

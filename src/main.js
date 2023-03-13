@@ -20,6 +20,8 @@ function doInitialInput() {
   document.getElementById("initial-input").style.display = "none";
   document.getElementById("board").style.display = "";
   match.setupTeamButtons();
+
+  window.generateTest(match);
 }
 
 function loop() {

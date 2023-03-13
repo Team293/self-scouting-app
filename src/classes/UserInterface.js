@@ -126,10 +126,10 @@ const UserInterface = {
       let btn = getRobotButton(robot);
       if (robot.inventory === CUBE) {
         btn.innerHTML =
-          robot.team + '<div class="inventory" data-type="cube"></div>';
+          robot.team + ' <div class="inventory" data-type="cube"></div>';
       } else if (robot.inventory === CONE) {
         btn.innerHTML =
-          robot.team + '<div class="inventory" data-type="cone"></div>';
+          robot.team + ' <div class="inventory" data-type="cone"></div>';
       } else {
         btn.innerHTML = robot.team;
       }

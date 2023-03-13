@@ -389,11 +389,12 @@ class Match {
     let obj = {
       archive: this.archive,
       matchType: this.matchType,
-      compType: this.compType
+      compType: this.compType,
+      matchNumber: this.matchNumber
     };
+    // gets all data except match from events
     obj.events = this.events.map((x) => ({
-      robot: x.robot.team,
-      eventType: x.eventType,
+      ...x, match: undefined
     }));
     obj.redAlliance = {
       color: this.redAlliance.color,
