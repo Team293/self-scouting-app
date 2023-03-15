@@ -250,13 +250,13 @@ h4 {
     grid-column: 1 / 4;
     flex-grow: 1;
     display: flex;
-    height: calc(100% * 9 / var(--button-rows));
+    height: calc(100% * 7 / var(--button-rows));
 }
 
 #bottomOfField {
     display: flex;
     flex-shrink: 0;
-    height: calc(100% * 2 / var(--button-rows));
+    height: calc(100% * 3 / var(--button-rows));
 }
 
 #bottomOfField > div {
@@ -335,7 +335,9 @@ i.big {
 .centerBottom > button,
 #robots > button {
     border-radius: 0.2rem;
-    padding: 0 1vw;
+    padding: 0 2vw;
+    padding-top: 3vh;
+    padding-bottom: 3vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -408,7 +410,7 @@ i.big {
 }
 
 .loadingZone > button {
-    height: 50%;
+    height: 100%;
     width: 100%;
 }
 
