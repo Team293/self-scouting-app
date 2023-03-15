@@ -65,12 +65,13 @@
                         >00:00.00</span
                     >/ 2:30
                 </h3>
-                <h4 id="matchState" class="bold">AUTO</h4>
-                <h4>|</h4>
+                <h4>Gamemode: </h4>
+                <h4 id="matchState" class="bold">NONE</h4>
+                <h4>| Selected Piece: </h4>
                 <h4 id="matchSelectedPiece" class="bold" data-type="cone">CONE</h4>
             </div>
             <div class="third">
-                <div class="flex">
+                <!-- <div class="flex">
                     <div class="bg-red diamond"></div>
                     <h1 id="scoreRed" class="mono">0</h1>
                 </div>
@@ -78,7 +79,7 @@
                 <div class="flex">
                     <h1 id="scoreBlue" class="mono">0</h1>
                     <div class="bg-blue diamond"></div>
-                </div>
+                </div> -->
             </div>
             <div class="third right">
                 <button
@@ -107,7 +108,7 @@
                 <option value="practice">Practice</option>
                 <option value="qualifier">Qualifier</option>
                 <option value="playoffs">Playoffs</option>
-                <option value="" selected>N/a</option>
+                <option value="" selected>N/A</option>
             </select>
             <label for="compType">Competition Type:</label>
             <select id="compType" name="compType">
@@ -115,7 +116,7 @@
                 <option value="montgomery">Montgomery</option>
                 <option value="lehigh">Lehigh</option>
                 <option value="worlds">Worlds</option>
-                <option value="" selected>N/a</option>
+                <option value="" selected>N/A</option>
             </select>
             <label for="match-number">Match number:</label>
             <input type="number" name="match-number" id="match-number" value="1"></input>
@@ -154,8 +155,8 @@
             </div>
             <div id="bottomOfField">
                 <div class="loadingZone blueSubstation">
-                    <button onclick="doSingleSubstation()" disabled>Single Subst.</button>
                     <button onclick="doDoubleSubstation()" disabled>Double Subst.</button>
+                    <button onclick="doSingleSubstation()" disabled>Single Subst.</button>
                 </div>
                 <div class="centerZone centerBottom">
                     <button onclick="doFieldPickup()" disabled>Field Pickup</button>
@@ -171,8 +172,8 @@
                     <button id="uploadBtn" onclick="uploadSerializedMatch()">Upload Match Data</button> -->
                 </div>
                 <div class="loadingZone redSubstation">
-                    <button onclick="doSingleSubstation()" disabled>Single Subst.</button>
                     <button onclick="doDoubleSubstation()" disabled>Double Subst.</button>
+                    <button onclick="doSingleSubstation()" disabled>Single Subst.</button>
                 </div>
             </div>
         </div>

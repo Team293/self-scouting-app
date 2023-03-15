@@ -280,18 +280,16 @@ class Match {
              */
             calculateLinkBonus(scoringGrid) {
                 let score = 0;
-
                 let count = 0;
-                let iteration = 0;
 
-                for (const gamePiece of scoringGrid) {
+                for (const [iteration, gamePiece] of scoringGrid.entries()) {
                     // Reset on new row
                     if (iteration % 9 === 0) {
                         count = 0;
                     }
 
                     // If the game piece is not empty
-                    if (gamePiece !== EMPTY) {
+                    if (gamePiece?.length || gamePiece !== undefined) {
                         count++;
                     } else {
                         count = 0;
@@ -304,8 +302,6 @@ class Match {
                         // Reset the count
                         count = 0;
                     }
-
-                    iteration++;
                 }
 
                 return score;

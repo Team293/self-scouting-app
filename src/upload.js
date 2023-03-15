@@ -30,7 +30,7 @@ class DatabaseConnector {
         const redAlliance = [];
         const blueAlliance = [];
 
-        console.log("LOADING TEAMS...");
+        console.log("RETRIEVING TEAMS...");
         // Join the red alliance and blue alliance into one array
         const teams = match.redAlliance.robots.concat(
             match.blueAlliance.robots
@@ -65,13 +65,13 @@ class DatabaseConnector {
             date: new Date().toUTCString(),
             redAlliance,
             blueAlliance,
-            events: [],
+            matchData: JSON.parse(this.generateJSON(match)),
             matchType: match.matchType ?? undefined,
             compType: match.compType ?? undefined,
             matchNumber: match.matchNumber,
         };
 
-        console.log("Creating match...");
+        console.log("CREATING MATCH...");
         console.log(redAlliance, blueAlliance);
 
         const matchRecord = await pb
@@ -84,35 +84,7 @@ class DatabaseConnector {
                 );
             });
 
-        const eventData = [];
-        console.log("LOADING EVENTS...");
-        for await (const [i, event] of match.events.entries()) {
-            // Get the field state at the time of the event
-            const fieldState = match.scoring.getFieldState(
-                match.events.slice(0, i)
-            );
-
-            console.log("Creating event...");
-            // Generate the event in the database
-            const eventRecord = await pb.collection("events").create({
-                type: event.type,
-                match: matchRecord.id,
-                fieldState,
-                event: {
-                    ...event,
-                    match: undefined,
-                    robot: event.robot.team,
-                    time: Math.round(event.time * 1000) / 1000,
-                },
-            });
-            // Add the event to the match list
-            eventData.push(eventRecord.id);
-        }
-
-        // Update the match with the events
-        await pb.collection("matches").update(matchRecord.id, {
-            events: eventData,
-        });
+        console.log("MATCH CREATED!");
     }
 
     generateJSON(match) {
@@ -126,7 +98,6 @@ class DatabaseConnector {
         });
 
         const events = match.events.map((event) => {
-            console.log(event);
             return {
                 ...event,
                 robot: event.robot.team,
@@ -159,7 +130,7 @@ class DatabaseConnector {
     }
 }
 
-async function generateTest(match) {
+async function generateTest() {
     const db = new DatabaseConnector();
     window.db = db;
     await db.authenticate(
