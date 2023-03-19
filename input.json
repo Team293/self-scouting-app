@@ -1,0 +1,105 @@
+{
+    "date": "Sat, 18 Mar 2023 16:50:33 GMT",
+    "redAlliance": ["8130", "3314", "87"],
+    "blueAlliance": ["293", "316", "1089"],
+    "events": [
+        {
+            "robot": "293",
+            "eventType": "inventorySet",
+            "time": 0,
+            "pieceType": 2
+        },
+        { "robot": "293", "eventType": "inventoryClear", "time": 36.539 },
+        {
+            "robot": "293",
+            "eventType": "pieceScore",
+            "time": 36.539,
+            "gridPosition": 8,
+            "pieceType": 2
+        },
+        {
+            "robot": "293",
+            "eventType": "pieceDislodge",
+            "time": 37.02,
+            "gridPosition": 8
+        },
+        {
+            "robot": "293",
+            "eventType": "inventorySet",
+            "time": 40.771,
+            "pieceType": 2
+        },
+        {
+            "robot": "293",
+            "eventType": "piecePickup",
+            "time": 40.771,
+            "location": 0,
+            "pieceType": 2
+        },
+        { "robot": "293", "eventType": "inventoryClear", "time": 41.58 },
+        {
+            "robot": "293",
+            "eventType": "pieceScore",
+            "time": 41.58,
+            "gridPosition": 8,
+            "pieceType": 2
+        },
+        {
+            "robot": "293",
+            "eventType": "inventorySet",
+            "time": 53.46,
+            "pieceType": 2
+        },
+        {
+            "robot": "293",
+            "eventType": "piecePickup",
+            "time": 53.46,
+            "location": 2,
+            "pieceType": 2
+        },
+        { "robot": "293", "eventType": "inventoryClear", "time": 64.32 },
+        {
+            "robot": "293",
+            "eventType": "pieceScore",
+            "time": 64.32,
+            "gridPosition": 17,
+            "pieceType": 2
+        },
+        {
+            "robot": "293",
+            "eventType": "inventorySet",
+            "time": 85.799,
+            "pieceType": 2
+        },
+        {
+            "robot": "293",
+            "eventType": "piecePickup",
+            "time": 85.799,
+            "location": 2,
+            "pieceType": 2
+        },
+        { "robot": "293", "eventType": "inventoryClear", "time": 99.06 },
+        {
+            "robot": "293",
+            "eventType": "pieceScore",
+            "time": 99.06,
+            "gridPosition": 15,
+            "pieceType": 2
+        },
+        {
+            "robot": "293",
+            "eventType": "inventorySet",
+            "time": 115.44,
+            "pieceType": 2
+        },
+        {
+            "robot": "293",
+            "eventType": "piecePickup",
+            "time": 115.44,
+            "location": 2,
+            "pieceType": 2
+        },
+        { "robot": "293", "eventType": "inventoryClear", "time": 131.549 }
+    ],
+    "matchNumber": "11"
+}

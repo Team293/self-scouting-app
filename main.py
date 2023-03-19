@@ -3,27 +3,30 @@ from values import POINT_VALUES as point_values
 import math
 import json
 
-url = "https://immense-scooter.pockethost.io/api/collections/matches/records/"
+# url = "https://immense-scooter.pockethost.io/api/collections/matches/records/"
 cube = 1
 cone = 2
 
-expand_items = [
-    "redAlliance",
-    "blueAlliance",
-    "events.team",
-    "events.fieldState",
-    "expand.events",
-    "events",
-]
+# expand_items = [
+#     "redAlliance",
+#     "blueAlliance",
+#     "events.team",
+#     "events.fieldState",
+#     "expand.events",
+#     "events",
+# ]
 
-params = f"?expand={','.join(expand_items)}"
-id = "kk3t1vp1go62609"
+# params = f"?expand={','.join(expand_items)}"
+# id = "kk3t1vp1go62609"
 
-# send a GET request
-response = requests.get(url + id + params).json()
-match_data = response.get("matchData")
+# # send a GET request
+# response = requests.get(url + id + params).json()
+# match_data = response.get("matchData")
 
-print(json.dumps(match_data, indent=4))
+# print(json.dumps(match_data, indent=4))
+
+# load data from input.json
+match_data = json.load(open("input.json"))
 
 
 def cycle_time(robot, piece_type=None, return_total_cycles=False):
@@ -45,9 +48,15 @@ def cycle_time(robot, piece_type=None, return_total_cycles=False):
     ]
 
     # get the average time between piece score events
-    cycle_time = round(
+    cycle_time = None
+    try:
+        cycle_time = round(
         sum(time_between_piece_score_events) / len(time_between_piece_score_events), 3
     )
+    except ZeroDivisionError:
+        # print("No piece score events found for piece types(s):", piece_type)
+        # default to infinity
+        cycle_time = float('inf')
 
     if return_total_cycles:
         return cycle_time, len(time_between_piece_score_events)
@@ -157,18 +166,23 @@ def get_total_points(robot, scoring_only=False):
     # get all events in teleop, the first 30 seconds
     teleop_events = [event for event in match_data.get("events") if event["time"] > 15]
 
-    # get the last chargeStation event that occurred in teleop
-    last_charge_station_event = [
+    last_charge_station_event = None
+    try:
+        # get the last chargeStation event that occurred in teleop
+        last_charge_station_event = [
         event
         for event in teleop_events
         if "chargeStation" in event["eventType"] and event.get("robot") == robot
     ][-1]
+        # if the event was a chargeStationEngaged event, add 12 points, otherwise add 8 points
+        if last_charge_station_event["eventType"] == "chargeStationEngaged":
+            points += point_values["TELEOP"]["DOCKED_AND_ENGAGED"]
+        elif last_charge_station_event["eventType"] == "chargeStationDock":
+            points += point_values["TELEOP"]["DOCKED_NOT_ENGAGED"]
+    except IndexError as e:
+        # no final charge station event, so ignore
+        pass
 
-    # if the event was a chargeStationEngaged event, add 12 points, otherwise add 8 points
-    if last_charge_station_event["eventType"] == "chargeStationEngaged":
-        points += point_values["TELEOP"]["DOCKED_AND_ENGAGED"]
-    elif last_charge_station_event["eventType"] == "chargeStationDock":
-        points += point_values["TELEOP"]["DOCKED_NOT_ENGAGED"]
 
     # get all pieceScore events that occurred in teleop
     teleop_piece_score_events = [
@@ -224,9 +238,10 @@ def calculate_link_bonus(grid):
     return score
 
 
-team = "296"
+team = "293"
 team_data = {
     "team": team,
+    "location": match_data.get("location"),
     "cycle_time": f"{cycle_time(team)} sec",
     "cubes_vs_cones": cubes_vs_cones(team),
     "points_per_minute": f"{points_per_minute(team)} pts/cycle",
@@ -235,7 +250,14 @@ team_data = {
     "cycles_per_minute": f"{number_of_cycles_per_minute(team)} cycles/min",
 }
 
+print("\nFRC 2023 Match Data Analyzer - Trevor Daly, Elliot Scully\n")
+
 print(f"Date: {match_data.get('date')}")
+print("Team".ljust(20, " ") + f" \033[1m{team_data['team']}\033[0m")
+print("Match Number".ljust(20, " ") + f" \033[1m{match_data.get('matchNumber')}\033[0m")
+print("Red Alliance".ljust(20, " ") + f" \033[1m{', '.join(match_data.get('redAlliance'))}\033[0m")
+print("Blue Alliance".ljust(20, " ") + f" \033[1m{', '.join(match_data.get('blueAlliance'))}\033[0m")
+print("")
 print(f"Cycle time of".ljust(20, " ") + f" \033[1m{team_data['cycle_time']}\033[0m")
 print(f"Better at scoring".ljust(20, " ") + f" \033[1m{team_data['cubes_vs_cones']}\033[0m")
 print("".ljust(20, " ") + f" \033[1m{team_data['points_per_cycle']}\033[0m")
@@ -244,3 +266,4 @@ print(
 )
 print("".ljust(20, " ") + f" \033[1m{team_data['number_of_cycles']}\033[0m")
 print("".ljust(20, " ") + f" \033[1m{team_data['cycles_per_minute']}\033[0m")
+print("")
